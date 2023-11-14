@@ -20,6 +20,8 @@ const session = require('express-session');
 const { reset } = require('nodemon');
 const prodata = require('./data.json');
 const { CLIENT_RENEG_LIMIT } = require('tls');
+const { pg, Client } = require('pg');
+
 
 //main const
 const app = express();
@@ -32,21 +34,24 @@ const io = new Server(server , {
     }
 })
 
-const db = new mysql.createConnection({
-    host : 'localhost',
-    user: 'root',
-    password: '',
-    database: 'master_quiz'
-})
+// const db = new mysql.createConnection({
+//     host : 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'master_quiz'
+// })
+
+// const client = new Client("naahas");
+// client.connect();
 
 
-db.connect(function (err) {
-    if(err) throw err;
-    console.log('-------------------')
-    console.log("Database connected");
-    console.log("-------------------");
+// db.connect(function (err) {
+//     if(err) throw err;
+//     console.log('-------------------')
+//     console.log("Database connected");
+//     console.log("-------------------");
     
-})
+// })
 
 //session middleware
 var tsec = 1000;
@@ -933,8 +938,8 @@ function reset_room(dhost) {
 
 
 function reset_db() {
-    db.query(`delete from hostroom`);
-    db.query(`delete from joinroom`);
+    // db.query(`delete from hostroom`);
+    // db.query(`delete from joinroom`);
 }
 
 
