@@ -1,0 +1,3 @@
+- sauvegarder l'état de la barre de chargement après page reload avec localstoage ou autre
+- trouver autre alternative a current_host (pck il faut enlever toutes les globals var sinon bug entre les sessions)
+
