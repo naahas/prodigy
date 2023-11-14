@@ -1011,7 +1011,7 @@ function associate_ph(username , urid) {
 
 
 
-server.listen(7000 , function(err) {
+server.listen(process.env.PORT || 7000 , function(err) {
     if(err) throw err;
     reset_db();
     console.log("-------------------");
