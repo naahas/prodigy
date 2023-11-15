@@ -95,7 +95,7 @@ io.engine.use(sessionMiddleware);
 
 //folder handler
 app.use(express.static('script'));
-app.use(express.static('style'));
+app.use(express.static(__dirname + "/style/"));
 app.use(express.static('sound'));
 app.use(express.static('img'));
 
