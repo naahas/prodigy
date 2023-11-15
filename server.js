@@ -94,10 +94,10 @@ io.engine.use(sessionMiddleware);
 
 
 //folder handler
-app.use(express.static('script'));
+app.use(express.static(__dirname + "/script/"));
 app.use(express.static(__dirname + "/style/"));
-app.use(express.static('sound'));
-app.use(express.static('img'));
+app.use(express.static(__dirname + "/sound/"));
+app.use(express.static(__dirname + "/img/"));
 
 
 //global var
