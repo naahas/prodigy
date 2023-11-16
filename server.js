@@ -8,7 +8,7 @@ const redisClient = require('redis');
 const nodemailer = require('nodemailer');
 const rediStore = require('connect-redis');
 const  Userfront = require('@userfront/core')
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const { Http2ServerRequest } = require("http2");
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
@@ -34,6 +34,7 @@ const io = new Server(server , {
     }
 })
 
+
 // const db = new mysql.createConnection({
 //     host : 'localhost',
 //     user: 'root',
@@ -41,17 +42,10 @@ const io = new Server(server , {
 //     database: 'master_quiz'
 // })
 
-// const client = new Client("naahas");
-// client.connect();
 
 
-// db.connect(function (err) {
-//     if(err) throw err;
-//     console.log('-------------------')
-//     console.log("Database connected");
-//     console.log("-------------------");
-    
-// })
+
+
 
 //session middleware
 var tsec = 1000;
