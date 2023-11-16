@@ -8,7 +8,6 @@ const redisClient = require('redis');
 const nodemailer = require('nodemailer');
 const rediStore = require('connect-redis');
 const  Userfront = require('@userfront/core')
-const mysql = require('mysql2');
 const { Http2ServerRequest } = require("http2");
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
