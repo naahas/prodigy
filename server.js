@@ -12,6 +12,8 @@ const { Http2ServerRequest } = require("http2");
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const { Server } = require('socket.io');
+const mysql = require('mysql');
+const mysql2 = require('mysql2');
 const { data } = require('jquery');
 const exp = require('constants');
 const axios = require('axios');
@@ -19,7 +21,10 @@ const session = require('express-session');
 const { reset } = require('nodemon');
 const prodata = require('./data.json');
 const { CLIENT_RENEG_LIMIT } = require('tls');
-const { pg, Client } = require('pg');
+const ms = require('mssql/msnodesqlv8');
+require('dotenv').config();
+
+
 
 
 //main const
@@ -34,14 +39,32 @@ const io = new Server(server , {
 })
 
 
-// const db = new mysql.createConnection({
+//for mssql
+const msConfig = {
+
+    database: process.env.DB_NAME,
+    host: process.env.DATABASE_URL,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    driver: 'msnodesqlv8',
+
+    options: {
+        trustedConnection:true
+    }
+}
+
+
+//for localhost
+// const db = new mysql2.createConnection({
 //     host : 'localhost',
-//     user: 'root',
-//     password: '',
+//     user: 'nahass',
+//     password: 'yugioh75D',
 //     database: 'master_quiz'
 // })
 
 
+
+const db = mysql2.createConnection(process.env.DATABASE_URL);
 
 
 
@@ -49,12 +72,13 @@ const io = new Server(server , {
 //session middleware
 var tsec = 1000;
 var tmin = 60000; //1 min
+var thour = tmin*60;
 const sessionMiddleware = session({
     secret: 'secret',
     resave: true,
     saveUninitialized: true,
     cookie: {
-        maxAge: 5*tmin,
+        maxAge: 24*thour,
         sameSite: 'lax'
     }
 });
