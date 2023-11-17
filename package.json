@@ -4,11 +4,6 @@
   "description": "server du jeu anime prodgy",
   "main": "server.js",
 
-  "engines": {
-    "node": "^18.12.0",
-    "npm": "^8.19.2"
-  },
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
