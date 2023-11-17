@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "server du jeu anime prodgy",
   "main": "server.js",
+
+  "engines": {
+    "node": "^18.12.0",
+    "npm": "^8.19.2"
+  },
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
@@ -10,6 +16,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+
   "dependencies": {
     "@userfront/core": "^0.1.0",
     "axios": "^1.5.0",
