@@ -64,7 +64,7 @@ const msConfig = {
 
 
 
-const db = mysql2.createConnection(process.env.DATABASE_URL);
+// const db = mysql2.createConnection(process.env.DATABASE_URL);
 
 
 
