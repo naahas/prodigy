@@ -9,6 +9,7 @@ const nodemailer = require('nodemailer');
 const rediStore = require('connect-redis');
 const  Userfront = require('@userfront/core')
 const mysql = require('mysql');
+const mysql2 = require('mysql2');
 const { Http2ServerRequest } = require("http2");
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
@@ -20,7 +21,8 @@ const session = require('express-session');
 const { reset } = require('nodemon');
 const prodata = require('./data.json');
 const { CLIENT_RENEG_LIMIT } = require('tls');
-const { pg, Client } = require('pg');
+require('dotenv').config();
+
 
 
 //main const
@@ -47,6 +49,8 @@ const io = new Server(server , {
 //     console.log("Database connected");
 //     console.log("-------------------");
 // })
+
+
 
 
 
