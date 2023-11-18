@@ -36,19 +36,26 @@ const io = new Server(server , {
     }
 })
 
-///////// for localhost
-// const db = new mysql.createConnection({
-//     host : 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'master_quiz'
-// })
-// db.connect(function (err) {
-//     if(err) throw err;
-//     console.log('-------------------')
-//     console.log("Database connected");
-//     console.log("-------------------");
-// })
+/////// for localhost
+const db = new mysql.createConnection({
+    host : process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+
+    ssl: {
+        rejectUnauthorized: true,
+      },
+    
+});
+
+
+db.connect(function (err) {
+    if(err) throw err;
+    console.log('-------------------')
+    console.log("Database connected");
+    console.log("-------------------");
+})
 
 
 
