@@ -8,12 +8,11 @@ const redisClient = require('redis');
 const nodemailer = require('nodemailer');
 const rediStore = require('connect-redis');
 const  Userfront = require('@userfront/core')
+const mysql = require('mysql');
 const { Http2ServerRequest } = require("http2");
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const { Server } = require('socket.io');
-const mysql = require('mysql');
-const mysql2 = require('mysql2');
 const { data } = require('jquery');
 const exp = require('constants');
 const axios = require('axios');
@@ -21,10 +20,7 @@ const session = require('express-session');
 const { reset } = require('nodemon');
 const prodata = require('./data.json');
 const { CLIENT_RENEG_LIMIT } = require('tls');
-const ms = require('mssql/msnodesqlv8');
-require('dotenv').config();
-
-
+const { pg, Client } = require('pg');
 
 
 //main const
@@ -38,47 +34,34 @@ const io = new Server(server , {
     }
 })
 
-
-//for mssql
-const msConfig = {
-
-    database: process.env.DB_NAME,
-    host: process.env.DATABASE_URL,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    driver: 'msnodesqlv8',
-
-    options: {
-        trustedConnection:true
-    }
-}
-
-
-//for localhost
-// const db = new mysql2.createConnection({
+// const db = new mysql.createConnection({
 //     host : 'localhost',
-//     user: 'nahass',
-//     password: 'yugioh75D',
+//     user: 'root',
+//     password: '',
 //     database: 'master_quiz'
 // })
 
+// const client = new Client("naahas");
+// client.connect();
 
 
-const db = mysql2.createConnection(process.env.DATABASE_URL);
-
-
-
+// db.connect(function (err) {
+//     if(err) throw err;
+//     console.log('-------------------')
+//     console.log("Database connected");
+//     console.log("-------------------");
+    
+// })
 
 //session middleware
 var tsec = 1000;
 var tmin = 60000; //1 min
-var thour = tmin*60;
 const sessionMiddleware = session({
     secret: 'secret',
     resave: true,
     saveUninitialized: true,
     cookie: {
-        maxAge: 24*thour,
+        maxAge: 5*tmin,
         sameSite: 'lax'
     }
 });
