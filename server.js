@@ -36,7 +36,8 @@ const io = new Server(server , {
     }
 })
 
-/////// for localhost
+
+/////// database connection
 const db = new mysql.createConnection({
     host : process.env.DB_HOST,
     user: process.env.DB_USER,
