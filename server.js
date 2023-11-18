@@ -34,24 +34,21 @@ const io = new Server(server , {
     }
 })
 
+///////// for localhost
 // const db = new mysql.createConnection({
 //     host : 'localhost',
 //     user: 'root',
 //     password: '',
 //     database: 'master_quiz'
 // })
-
-// const client = new Client("naahas");
-// client.connect();
-
-
 // db.connect(function (err) {
 //     if(err) throw err;
 //     console.log('-------------------')
 //     console.log("Database connected");
 //     console.log("-------------------");
-    
 // })
+
+
 
 //session middleware
 var tsec = 1000;
