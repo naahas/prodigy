@@ -2,27 +2,27 @@
 [
 
     {
-        "question" : "Qui est le plus moche ?",
-        "answer" : ["adem" , "yacine" , "zakaria" , "elias"],
+        "question" : "Qui est le personnage principal de One Piece ?",
+        "answer" : ["luffy" , "zoro" , "nami" , "sanji"],
         "correct" : 1
     },
 
     {
-        "question" : "qui aime les chinois ?",
-        "answer" : ["mlzamelmzla" , "azaza" , "sddcxcwx" , "tyyyyuyu"],
-        "correct" : 3
+        "question" : "Qui est le personnage principal de my hero ?",
+        "answer" : ["deku" , "bakugo" , "aok" , "all might"],
+        "correct" : 1
     },
 
     {
-        "question" : "qui est le plus fort ?",
-        "answer" : ["nnnn" , "vvvvv mais nn cest pale siiez le zamemazmel zalzamle" , "ggggg" , "lllll"],
+        "question" : "Qui est le personnage principal de Bleach ?",
+        "answer" : ["lapin" , "sacha" , "arnacoeur" , "ichigo"],
         "correct" : 4
     },
 
     {
         "question" : "Qui a des grosses lunettes carrées et a une gigantesque et énorme crête ?",
-        "answer" : ["toi" , "moi" , "lui" , "elle"],
-        "correct" : 2
+        "answer" : ["nk aegeus" , "cronossou" , "sawada" , "arnacoeur"],
+        "correct" : 4
     }
 
 ]
