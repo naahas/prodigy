@@ -37,7 +37,17 @@ const io = new Server(server , {
 })
 
 
-/////// database connection
+// const db = new mysql.createConnection({
+//     host : 'localhost',
+//     user: 'nahass',
+//     password: 'yugioh75D',
+//     database: 'master_quiz',
+
+// });
+
+
+
+///// database connection
 const db = new mysql.createConnection({
     host : process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -49,6 +59,9 @@ const db = new mysql.createConnection({
       },
     
 });
+
+
+
 
 
 db.connect(function (err) {

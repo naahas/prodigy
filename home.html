@@ -86,7 +86,7 @@
                 <div id="popupcode" class="codewrap">
                     <div id="cdiv" class="codediv">
                         <form @submit.prevent="joinLobby()" method="post" action="/play">
-                            <input onfocus="resetBackInput()" id="inputroom" v-model="roomChoice" name="codeid" placeholder="Code du salon.." inputmode="numeric" autocomplete="off">
+                            <input onfocus="resetBackInput()" id="inputroom" v-model="roomChoice" name="codeid" placeholder="Code du salon.." autocomplete="off">
                             <button id="codebtn">VALIDER</button>
                             <!-- <i style="padding: 1em;" class="fa fa-angry fa-spin"></i> -->
                         </form>

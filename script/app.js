@@ -521,6 +521,8 @@ var app = new Vue({
             this.finalAnswernb = playerfinalnb;
             startTimer(s_time , coanswer , playerfinalnb , plife);
         });
+
+
     },
 
    
@@ -555,6 +557,7 @@ var app = new Vue({
 
 
        socket.on('displayPreGame' , ( target , question , answers , plife) => {
+
             this.playerlife = plife;
             this.c_question = question;
             this.answers = answers;
@@ -563,7 +566,8 @@ var app = new Vue({
 
 
        socket.on('showQuestion' , (nbq , target , question , answers , plife) => {
-            $('#timetxt').fadeIn(200);
+
+            $('.timediv').fadeIn(200);
             this.playerlife = plife;
             this.c_question = question;
             this.answers = answers;
@@ -583,7 +587,7 @@ var app = new Vue({
        });
 
        socket.on("finalTimeDisplay" , (finalt) => {
-            if(finalt == 0) $('#timetxt').hide();
+            if(finalt == 0) $('.timediv').hide();
        });
 
        socket.on('updateFinalAnswer' , (uanswernb , canswer) => {
@@ -1013,7 +1017,7 @@ function preQuizAnimation(target , plife) {
         }, 6000);
 
         setTimeout(() => {
-            $('#timetxt').fadeIn(700);
+            $('.timediv').fadeIn(700);
         }, 6500);
         
 
@@ -1021,33 +1025,12 @@ function preQuizAnimation(target , plife) {
 }
 
 
-function playShinSound() {
-    var anb = Math.floor(Math.random() * 5);
-    var shin_audio;
 
-    switch(anb) {
-        case 0: shin_audio = new Audio("sound1.mp3");break;
-        case 1: shin_audio = new Audio("sound2.mp3");break;
-        case 2: shin_audio = new Audio("sound3.mp3");break;
-        case 3: shin_audio = new Audio("sound4.mp3");break;
-        case 4: shin_audio = new Audio("sound5.mp3");break;
-        default: shin_audio = null;break;
-    }
+function displayShinData() {
 
-    if(shin_audio) {
-        shin_audio.volume = 0.5;
-        shin_audio.play();
-    } else {
-        console.log("Sound Importation Error");
-    }
-    
-}
+    console.log("lol");
 
-function playShinSound2() {
-
-    var shin_audio = new Audio('sound7.mp3');
-    shin_audio.volume = 0.6;
-    shin_audio.play();
+   
     
 }
 
@@ -1164,6 +1147,10 @@ function startTimer(uptimer , coanswer , playernbanswer , plife) {
         
         uptimer--;
 
+        if(uptimer <= 3) {
+            $('#timetxt').css('background-color' , 'rgba(175, 65, 65, 0.8)');
+        }
+
         if(uptimer >= 0) $('#timetxt').text(uptimer + "");
         
         if(uptimer == 0) {
@@ -1247,7 +1234,7 @@ function activateNext(correct_answer , playernbanswer) {
         $(this).removeClass('nextbtnhover');
     });
 
-    $('#timetxt').fadeOut(600);
+    $('.timediv').fadeOut(600);
 
     ///// SHOW WRONG AND RIGHT ANSWER
 
