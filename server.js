@@ -22,9 +22,11 @@ const { reset } = require('nodemon');
 const prodata = require('./data.json');
 const { CLIENT_RENEG_LIMIT } = require('tls');
 const { time } = require('console');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
-
+//for bcrypt
+const saltRounds = 10;
 
 //main const
 const app = express();
@@ -74,8 +76,6 @@ db.connect(function (err) {
 
 
 
-
-
 //session middleware
 var tsec = 1000;
 var tmin = 60000; //1 min
@@ -88,6 +88,8 @@ const sessionMiddleware = session({
         sameSite: 'lax'
     }
 });
+
+
 
 app.use(sessionMiddleware , function(req,res, next) {
 
@@ -542,23 +544,36 @@ app.post('/login' , function(req,res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    db.query(`select COUNT(*) as nbc from user where username = ? and usermdp = ?`, [username , password] , function (err,result,fields) {
+    db.query(`select usermdp from user where username = ?`, [username , password] , function (err,result,fields) {
         if(err) throw err;
-  
-        // successful login
-        if(result[0].nbc == 1) {
-            req.session.log = true;
-            req.session.user = username;
-            req.session.host = false;
-            req.session.firstlaunch = 0;
-            req.session.ingame = false;
-            req.session.host_playing = false;
-            req.session.pregamedone = false;
-            res.status(202);
-            res.end();
+
+        
+
+        if(result.length > 0) {
+
+            bcrypt.compare(password, result[0].usermdp).then(function(result) {
+                if(result == true) {
+                    req.session.log = true;
+                    req.session.user = username;
+                    req.session.host = false;
+                    req.session.firstlaunch = 0;
+                    req.session.ingame = false;
+                    req.session.host_playing = false;
+                    req.session.pregamedone = false;
+                    res.status(202);
+                    res.end();
+                } else {
+                    res.send('Identifiants Incorrects')
+                }
+
+            });
+
         } else {
-           res.send("Identifiants Incorrect")
+            res.send("Identifiants Incorrects");
         }
+  
+
+        
             
     });   
                  
@@ -577,6 +592,7 @@ app.post('/register' , function(req,res) {
 
         db.query(`select username,usermail from user where username = ? or usermail = ? `, [username , mail] , function (err,result,fields) {
             if(err) throw err;
+
             //username or mail already in the bdd
             if(result.length>0) {
                 if(username == result[0].username) {
@@ -587,7 +603,13 @@ app.post('/register' , function(req,res) {
                 
             } else {
                 //insert user in bdd
-                db.query(`insert into user (username,usermail,usermdp) values (?,?,?)`, [username , mail , password]);
+                
+
+                bcrypt.hash(password, saltRounds).then(function(hash) {
+                    db.query(`insert into user (username,usermail,usermdp) values (?,?,?)`, [username , mail , hash]);
+                });
+
+        
                 res.sendStatus(202);
             }
                 
