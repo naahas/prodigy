@@ -40,28 +40,28 @@ const io = new Server(server , {
 })
 
 
-const db = new mysql.createConnection({
-    host : 'localhost',
-    user: 'nahass',
-    password: 'yugioh75D',
-    database: 'master_quiz',
-
-});
-
-
-
-// ///// database connection
 // const db = new mysql.createConnection({
-//     host : process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME,
+//     host : 'localhost',
+//     user: 'nahass',
+//     password: 'yugioh75D',
+//     database: 'master_quiz',
 
-//     ssl: {
-//         rejectUnauthorized: true,
-//       },
-    
 // });
+
+
+
+///// database connection
+const db = new mysql.createConnection({
+    host : process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+
+    ssl: {
+        rejectUnauthorized: true,
+      },
+    
+});
 
 
 
