@@ -567,7 +567,7 @@ var app = new Vue({
 
        socket.on('showQuestion' , (nbq , target , question , answers , plife) => {
 
-            $('.timediv').fadeIn(200);
+            $('#timetxt').fadeIn(200);
             this.playerlife = plife;
             this.c_question = question;
             this.answers = answers;
@@ -587,7 +587,7 @@ var app = new Vue({
        });
 
        socket.on("finalTimeDisplay" , (finalt) => {
-            if(finalt == 0) $('.timediv').hide();
+            if(finalt == 0) $('#timetxt').hide();
        });
 
        socket.on('updateFinalAnswer' , (uanswernb , canswer) => {
@@ -612,6 +612,11 @@ var app = new Vue({
        socket.on('showFinalData' , (lastplayer) => {
             showLastResult(lastplayer);
        });
+
+       socket.on('showFastest' , (fastest_player , fastest_time) => {
+            showFirstPlayer(fastest_player , fastest_time); 
+       });
+
 
     },
 
@@ -1017,7 +1022,7 @@ function preQuizAnimation(target , plife) {
         }, 6000);
 
         setTimeout(() => {
-            $('.timediv').fadeIn(700);
+            $('#timetxt').fadeIn(700);
         }, 6500);
         
 
@@ -1147,11 +1152,8 @@ function startTimer(uptimer , coanswer , playernbanswer , plife) {
         
         uptimer--;
 
-        if(uptimer <= 3) {
-            $('#timetxt').css('background-color' , 'rgba(175, 65, 65, 0.8)');
-        }
-
         if(uptimer >= 0) $('#timetxt').text(uptimer + "");
+        if(uptimer <=3) document.getElementById('timetxt').style.color = 'hotpink';   
         
         if(uptimer == 0) {
 
@@ -1185,7 +1187,7 @@ function startTimer(uptimer , coanswer , playernbanswer , plife) {
 
                 } else {
                     
-                    $('.spananswermsg').html("AFK ?");
+                    if(plife>0) $('.spananswermsg').html("AFK ?");
                     $('.infobulle').css('background-color' , "#e6e99e" );
 
                     if(plife == 3) {
@@ -1208,9 +1210,11 @@ function startTimer(uptimer , coanswer , playernbanswer , plife) {
                 removeLifeServer();
             }
 
-            $('.infobulle').css('opacity' , 1);
-            $('.infobulle').css('left' , "-15px");
-            $('.infobulle').css('top' , "-50px");
+            if(plife > 0) {
+                $('.infobulle').css('opacity' , 1);
+                $('.infobulle').css('left' , "-15px");
+                $('.infobulle').css('top' , "-50px");
+            }
 
             clearInterval(vv);
         
@@ -1234,7 +1238,7 @@ function activateNext(correct_answer , playernbanswer) {
         $(this).removeClass('nextbtnhover');
     });
 
-    $('.timediv').fadeOut(600);
+    $('#timetxt').fadeOut(600);
 
     ///// SHOW WRONG AND RIGHT ANSWER
 
@@ -1520,6 +1524,23 @@ function updateEndPlayerData() {
     .catch(function (err) {
         console.log(err);
     });
+
+}
+
+
+
+function showFirstPlayer(name , time) {
+
+    if(window.innerWidth < 432) {
+        $('#fasttxt').text(name + " a été le plus rapide : " + time + "s");
+        $('#fasttxt').css('font-size' ,  '2.2vmin');
+    } else {
+        $('#fasttxt').text(name + " a été le plus rapide : " + time + "s");
+    }
+
+
+    $('.fastdiv').fadeIn();
+    
 
 }
 

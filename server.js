@@ -21,6 +21,7 @@ const session = require('express-session');
 const { reset } = require('nodemon');
 const prodata = require('./data.json');
 const { CLIENT_RENEG_LIMIT } = require('tls');
+const { time } = require('console');
 require('dotenv').config();
 
 
@@ -140,6 +141,9 @@ var mapprelife = new Map();
 var mappostlife = new Map();
 var mapregainlife = new Map();
 var mapgamestart = new Map();
+var mapfastest = new Map();
+var mapcomparespeed = new Map();
+var mapspeedtime = new Map();
 
 //path handle
 app.get('/' , function(req,res) {
@@ -352,6 +356,31 @@ app.post('/validateAnswer' , function(req,res) {
     req.session.answer = req.body.val;
     req.session.answernb = req.body.valnb;
 
+    if(req.session.host == true) {
+        var qdata = mapdataquiz.get(req.session.user);
+        var c_answer = qdata[2];  
+        if(c_answer == req.session.answernb) {
+            if(mapfastest.has(req.session.rid) != true) {
+                mapfastest.set(req.session.rid , req.session.user);
+                var ftime = 11 - maptimeplayerleft.get(req.session.user);
+                mapspeedtime.set(req.session.rid , ftime)
+            }
+        }
+
+    } else {
+        var myhost = mapassociate.get(req.session.user);
+        var qdata = mapdataquiz.get(myhost);
+        var c_answer = qdata[2];  
+
+        if(c_answer == req.session.answernb) {
+            if(mapfastest.has(req.session.rid) != true) {
+                mapfastest.set(req.session.rid , req.session.user);
+                var ftime = 11 - maptimeplayerleft.get(myhost);
+                mapspeedtime.set(req.session.rid , ftime)
+            }
+        }
+    }
+     
     res.redirect('/quiz');
 });
 
@@ -372,6 +401,8 @@ app.post('/passQroute' , function(req,res) {
 app.post('/passResult' , function(req,res) {
 
     var ptmp = [];
+    mapfastest.clear();
+    mapspeedtime.clear();
 
     maproomplayer.forEach((roomid,player) => {
         if(roomid == req.session.rid) ptmp.push(player);
@@ -773,7 +804,11 @@ io.on('connection' , (socket) => {
 
                     var progress_interval = setInterval(() => {
                         var timeleft = maptimeplayerleft.get(iosession);
-                        if(timeleft <= 0 ) clearInterval(progress_interval);
+                        if(timeleft <= 0 ) {
+                            clearInterval(progress_interval);
+                            var rmill = generateMillisecond(mapspeedtime.get(ioroomsession));
+                            if(mapfastest.has(ioroomsession)) io.to(ioroomsession).emit('showFastest' , mapfastest.get(ioroomsession) , rmill);
+                        }
                         if(timeleft > 0) maptimeplayerleft.set(iosession , timeleft-=1)
                     }, 1000);
 
@@ -938,6 +973,17 @@ function generateQuestion() {
     return [cho_question , cho_answer , cho_correct];
     
    
+}
+
+
+function generateMillisecond(timef) {
+    var rmm = timef + 1;
+    var rm = Math.random() * (rmm - timef) + timef;
+
+    var res = rm.toFixed(3);
+    
+    return res;
+    
 }
 
 
