@@ -42,15 +42,15 @@ const io = new Server(server , {
 
 // const db = new mysql.createConnection({
 //     host : 'localhost',
-//     user: 'nahass',
-//     password: 'yugioh75D',
+//     user: 'root',
+//     password: '',
 //     database: 'master_quiz',
 
 // });
 
 
 
-///// database connection
+/// database connection
 const db = new mysql.createConnection({
     host : process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -426,6 +426,8 @@ app.post('/passResult' , function(req,res) {
                 if(roomid == req.session.rid) lastplayer = player;
             });
 
+            db.query(`update user set userwin = userwin + 1 where username = ? `, lastplayer);
+
             req.session.winnergame = lastplayer;
             req.session.endgame = true;
             mapendgame.set(req.session.rid , true);
@@ -603,8 +605,6 @@ app.post('/register' , function(req,res) {
                 
             } else {
                 //insert user in bdd
-                
-
                 bcrypt.hash(password, saltRounds).then(function(hash) {
                     db.query(`insert into user (username,usermail,usermdp) values (?,?,?)`, [username , mail , hash]);
                 });
