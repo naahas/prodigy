@@ -1,36 +1,200 @@
 
-[
 
-    {
-        "question" : "Qui est le personnage principal de One Piece ?",
-        "answer" : ["luffy" , "zoro" , "nami" , "sanji"],
-        "correct" : 1
-    },
 
-    {
-        "question" : "Qui est le personnage principal de my hero ?",
-        "answer" : ["deku" , "bakugo" , "aok" , "all might"],
-        "correct" : 1
-    },
+{
 
-    {
-        "question" : "Qui est le personnage principal de Bleach ?",
-        "answer" : ["lapin" , "sacha" , "arnacoeur" , "ichigo"],
-        "correct" : 4
-    },
 
-    {
-        "question" : "Qui a des grosses lunettes carrées et a une gigantesque et énorme crête ?",
-        "answer" : ["nk aegeus" , "cronossou" , "sawada" , "arnacoeur"],
-        "correct" : 4
-    },
+        "veryeasy" : [
 
-    {
-        "question" : "Quel est numéro de matricule de Emma dans The promised neverland et pourquoi d'ailleurs lol ?",
-        "answer" : ["34424234" , "2342342" , "896224" , "1928745"],
-        "correct" : 2
-    }
 
-]
+            [
+                {
+                    "manga" : "CULTURE OVERALL",
+
+                    "question" : "Qui est le personnage principal de One Piece ?",
+                    "answer" : ["luffy" , "zoro" , "nami" , "sanji"],
+                    "correct" : 1
+
+                }
+
+            ],
+
+            
+            [
+                {   
+                    "manga" : "NARUTO",
+
+                    "question" : "Qui est le personnage principal de One Piece ?",
+                    "answer" : ["luffy" , "zoro" , "nami" , "sanji"],
+                    "correct" : 1
+                },
+
+                {
+                    "question" : "Qui est le personnage principal de my hero ?",
+                    "answer" : ["deku" , "bakugo" , "aok" , "all might"],
+                    "correct" : 1
+                },
+
+                {
+                    "question" : "Qui est le personnage principal de Bleach ?",
+                    "answer" : ["lapin" , "sacha" , "arnacoeur" , "ichigo"],
+                    "correct" : 4
+                },
+
+                {
+                    "question" : "Qui a des grosses lunettes carrées et a une gigantesque et énorme crête ?",
+                    "answer" : ["nk aegeus" , "cronossou" , "sawada" , "arnacoeur"],
+                    "correct" : 4
+                },
+
+                {
+                    "question" : "Quel est numéro de matricule de Emma dans The promised neverland et pourquoi d'ailleurs lol ?",
+                    "answer" : ["34424234" , "2342342" , "896224" , "1928745"],
+                    "correct" : 2
+                }
+                       
+            ],
+
+
+
+            [
+                {
+                    "manga" : "ONE PIECE",
+
+                    "question" : "Qui est mort en premier ?",
+                    "answer" : ["luffy" , "zoro" , "nami" , "sanji"],
+                    "correct" : 1
+                }
+
+            ]
+            
+
+
+        ],
+
+
+
+
+
+
+        
+
+        "easy" : [
+           
+            [
+                {
+                    "manga" : "CULTURE OVERALL",
+
+                    "question" : "Qui est le personnage principal de One Piece ?",
+                    "answer" : ["luffy" , "zoro" , "nami" , "sanji"],
+                    "correct" : 1
+
+                }
+
+            ],
+
+            
+            [
+                {   
+                    "manga" : "NARUTO",
+
+                    "question" : "Qui est le personnage principal de One Piece ?",
+                    "answer" : ["luffy" , "zoro" , "nami" , "sanji"],
+                    "correct" : 1
+                },
+
+                {
+                    "question" : "Qui est le personnage principal de my hero ?",
+                    "answer" : ["deku" , "bakugo" , "aok" , "all might"],
+                    "correct" : 1
+                },
+
+                {
+                    "question" : "Qui est le personnage principal de Bleach ?",
+                    "answer" : ["lapin" , "sacha" , "arnacoeur" , "ichigo"],
+                    "correct" : 4
+                },
+
+                {
+                    "question" : "Qui a des grosses lunettes carrées et a une gigantesque et énorme crête ?",
+                    "answer" : ["nk aegeus" , "cronossou" , "sawada" , "arnacoeur"],
+                    "correct" : 4
+                },
+
+                {
+                    "question" : "Quel est numéro de matricule de Emma dans The promised neverland et pourquoi d'ailleurs lol ?",
+                    "answer" : ["34424234" , "2342342" , "896224" , "1928745"],
+                    "correct" : 2
+                }
+                       
+            ],
+
+
+
+            [
+                {
+                    "manga" : "ONE PIECE",
+
+                    "question" : "Qui est mort en premier ?",
+                    "answer" : ["luffy" , "zoro" , "nami" , "sanji"],
+                    "correct" : 1
+                }
+
+            ]
+
+        ],
+
+
+
+
+        "medium" : [
+           
+
+
+        ],
+
+
+
+
+
+
+        "hard" : [
+            
+
+
+        ],
+
+
+
+
+
+
+
+        "veryhard" : [
+            
+
+
+        ],
+
+
+
+
+
+
+
+
+
+        "extreme" : [
+            
+
+
+        ]
+
+
+
+
+
+
+}
 
 

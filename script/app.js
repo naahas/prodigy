@@ -556,23 +556,23 @@ var app = new Vue({
        });
 
 
-       socket.on('displayPreGame' , ( target , question , answers , plife) => {
+       socket.on('displayPreGame' , ( target , question , answers , difficulty , plife) => {
 
             this.playerlife = plife;
             this.c_question = question;
             this.answers = answers;
-            preQuizAnimation(target , plife);
+            preQuizAnimation(target , plife , difficulty);
        });
 
 
-       socket.on('showQuestion' , (nbq , target , question , answers , plife) => {
+       socket.on('showQuestion' , (nbq , target , question , answers , difficulty , plife) => {
 
             $('#timetxt').fadeIn(200);
             this.playerlife = plife;
             this.c_question = question;
             this.answers = answers;
             if(target=='host') $('#nextbtnid').show();
-            displayQuestion(nbq , plife);
+            displayQuestion(nbq , plife , difficulty);
 
        });
 
@@ -950,7 +950,14 @@ function gameLaunch() {
 }
 
 
-function preQuizAnimation(target , plife) {
+function preQuizAnimation(target , plife , difficulty) {
+
+        if(difficulty == "Very easy") $('#diffimgid').prop('src' , 'veryeasy2.png');
+        if(difficulty == "Easy") $('#diffimgid').prop('src' , 'easy2.png');
+        if(difficulty == "Medium") $('#diffimgid').prop('src' , 'medium2.png');
+        if(difficulty == "Hard") $('#diffimgid').prop('src' , 'hard2.png');
+        if(difficulty == "Very Hard") $('#diffimgid').prop('src' , 'veryhard2.png');
+        if(difficulty == "Extreme") $('#diffimgid').prop('src' , 'extreme.png');
 
         $(".shinpic").show();
         $('.shinpic').addClass('shinpic_animation1');
@@ -1030,19 +1037,23 @@ function preQuizAnimation(target , plife) {
 }
 
 
-
+//click on shin pic
 function displayShinData() {
 
     console.log("lol");
-
-   
     
 }
 
 
-function displayQuestion(nbp , plife) {
-
-
+function displayQuestion(nbp , plife , difficulty) {
+    
+    if(difficulty == "Very easy") $('#diffimgid').prop('src' , 'veryeasy2.png');
+    if(difficulty == "Easy") $('#diffimgid').prop('src' , 'easy2.png');
+    if(difficulty == "Medium") $('#diffimgid').prop('src' , 'medium2.png');
+    if(difficulty == "Hard") $('#diffimgid').prop('src' , 'hard2.png');
+    if(difficulty == "Very Hard") $('#diffimgid').prop('src' , 'veryhard2.png');
+    if(difficulty == "Extreme") $('#diffimgid').prop('src' , 'extreme.png');
+    
 
     if(plife <= 0) {
         $('.btnres').prop('disabled' , true);
@@ -1532,10 +1543,10 @@ function updateEndPlayerData() {
 function showFirstPlayer(name , time) {
 
     if(window.innerWidth < 432) {
-        $('#fasttxt').text(name + " a été le plus rapide : " + time + "s");
+        $('#fasttxt').text(name + " A ÉTÉ LE PLUS RAPIDE : " + time + "sec");
         $('#fasttxt').css('font-size' ,  '2.2vmin');
     } else {
-        $('#fasttxt').text(name + " a été le plus rapide : " + time + "s");
+        $('#fasttxt').text(name + " A ÉTÉ LE PLUS RAPIDE : " + time + "s");
     }
 
 

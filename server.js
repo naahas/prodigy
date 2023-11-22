@@ -19,14 +19,17 @@ const exp = require('constants');
 const axios = require('axios');
 const session = require('express-session');
 const { reset } = require('nodemon');
-const prodata = require('./data.json');
 const { CLIENT_RENEG_LIMIT } = require('tls');
 const { time } = require('console');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
-//for bcrypt
+//for bcryptjs
 const saltRounds = 10;
+
+//json files
+const prodata = require('./data.json');
+const prodata2 = require('./datanb.json')
 
 //main const
 const app = express();
@@ -168,7 +171,6 @@ app.post('/play' , function(req,res) {
                 req.session.firstLaunchEnd = 0;
                 req.session.life = 3;
                 req.session.ingame = true;
-                mapdataquiz.set(req.session.user , generateQuestion());
                 maptimeplayerleft.set(req.session.user , firstcounter);
                 mapprogress.set(req.session.user , false);
                 req.session.endgame = false;
@@ -182,10 +184,11 @@ app.post('/play' , function(req,res) {
                 
                 db.query(`insert into hostroom (host,roomid) values (?,?)`, [req.session.user , roomID]);
                 req.session.rid = roomID;
+                mapquestionb.set(req.session.rid , 1);
+                mapdataquiz.set(req.session.user , generateQuestionAllOrder(req));
                 rooms.push(roomID);
                 current_hostusers.push(req.session.user);
                 mappassed.set(req.session.rid , "ip0");
-                mapquestionb.set(req.session.rid , 1);
                 maproomplayer.set(req.session.user  , req.session.rid);
                 mapendgame.set(req.session.rid , false);
                 mapprelife.set(req.session.user , 3);
@@ -421,7 +424,7 @@ app.post('/passResult' , function(req,res) {
             });  
 
             var lastplayer;
-
+            
             maproomplayer.forEach((roomid,player) => {
                 if(roomid == req.session.rid) lastplayer = player;
             });
@@ -441,7 +444,7 @@ app.post('/passResult' , function(req,res) {
                 if(life == 1) mapregainlife.set(user , 'true');
             });
 
-            mapdataquiz.set(req.session.user , generateQuestion());
+            mapdataquiz.set(req.session.user , generateQuestionAllOrder(req));
             mappassed.set(req.session.rid , "ip0");
             maptimeplayerleft.set(req.session.user , 11);
             mapprogress.set(req.session.user , false);
@@ -460,7 +463,7 @@ app.post('/passResult' , function(req,res) {
 
     } else {
 
-        mapdataquiz.set(req.session.user , generateQuestion());
+        mapdataquiz.set(req.session.user , generateQuestionAllOrder(req));
         mappassed.set(req.session.rid , "ip0");
         maptimeplayerleft.set(req.session.user , 11);
         mapprogress.set(req.session.user , false);
@@ -816,6 +819,7 @@ io.on('connection' , (socket) => {
                 var question = qdata[0];
                 var answers = qdata[1];
                 var c_answer = qdata[2];
+                var q_difficulty = qdata[3];
 
                 // allow host to go to next question after countdown
                 if(mapprogress.get(iosession) == false) {
@@ -845,11 +849,11 @@ io.on('connection' , (socket) => {
                 // display pregame or not
                 if(ioplayerpregame == false) {
                     if(socket.rooms.has(ioroomsession)) {
-                        socket.emit("displayPreGame" , 'host' , question ,  answers , ioplayerlife);
+                        socket.emit("displayPreGame" , 'host' , question ,  answers , q_difficulty , ioplayerlife);
                     }
                 } else {
                     if(socket.rooms.has(ioroomsession)) {
-                        socket.emit('showQuestion' , qnb , 'host' , question ,  answers , ioplayerlife);
+                        socket.emit('showQuestion' , qnb , 'host' , question ,  answers , q_difficulty ,  ioplayerlife);
                         socket.emit('finalTimeDisplay' , maptimeplayerleft.get(iosession));
                     }
                 }
@@ -885,17 +889,18 @@ io.on('connection' , (socket) => {
             var question = qdata[0];
             var answers = qdata[1];
             var c_answer = qdata[2];
+            var q_difficulty = qdata[3];
             
             //display pregame or not
             if(ioplayerpregame == false) {
                 if(socket.rooms.has(ioroomsession)) {
                     socket.emit('startTimerEvent' , maptimeplayerleft.get(myhost) , c_answer , ioplayeranswernb , ioplayerlife);
-                    socket.emit("displayPreGame" , 'player' , question ,  answers , ioplayerlife);
+                    socket.emit("displayPreGame" , 'player' , question ,  answers , q_difficulty , ioplayerlife);
                 }
             } else {
                 if(socket.rooms.has(ioroomsession)) {
                     socket.emit('startTimerEvent' , maptimeplayerleft.get(myhost) , c_answer , ioplayeranswernb , ioplayerlife);
-                    socket.emit('showQuestion' , qnb , 'player' , question ,  answers , ioplayerlife);
+                    socket.emit('showQuestion' , qnb , 'player' , question ,  answers , q_difficulty , ioplayerlife);
                     socket.emit('finalTimeDisplay' , maptimeplayerleft.get(myhost));
                 }
             }
@@ -984,15 +989,103 @@ function generateRoomID(code_length) {
 
 
 
-function generateQuestion() {
-    //prodata.splice(2,1) delete 1 pair question/answers at position 2
-    var rand_qr = Math.floor(Math.random() * prodata.length);
-    
-    var cho_question = prodata[rand_qr].question;
-    var cho_answer = prodata[rand_qr].answer;
-    var cho_correct = prodata[rand_qr].correct;
+// prodata2.forEach(manga => {
+//     if(Object.getOwnPropertyNames(manga) == "Naruto") console.log(manga.Naruto)
+// });
+// console.log(Object.getOwnPropertyNames(prodata.veryeasy[1][0]))
 
-    return [cho_question , cho_answer , cho_correct];
+
+
+
+function generateQuestionAllOrder(req) {
+
+    var current_nbq = mapquestionb.get(req.session.rid);
+
+    //difficulty : very easy 
+    if(current_nbq <= 5) {
+        var rand_qr = Math.floor(Math.random() * prodata.veryeasy.length);
+        var rand_qr2 = Math.floor(Math.random() * prodata.veryeasy[rand_qr].length);
+
+        var cho_question = prodata.veryeasy[rand_qr][rand_qr2].question;
+        var cho_answer = prodata.veryeasy[rand_qr][rand_qr2].answer;
+        var cho_correct = prodata.veryeasy[rand_qr][rand_qr2].correct;
+
+        return [cho_question , cho_answer , cho_correct , "Very easy"];
+
+    } 
+
+
+    //difficulty : easy
+    if(current_nbq > 5 && current_nbq <= 15) {
+        var rand_qr = Math.floor(Math.random() * prodata.easy.length);
+        var rand_qr2 = Math.floor(Math.random() * prodata.easy[rand_qr].length);
+
+        var cho_question = prodata.easy[rand_qr][rand_qr2].question;
+        var cho_answer = prodata.easy[rand_qr][rand_qr2].answer;
+        var cho_correct = prodata.easy[rand_qr][rand_qr2].correct;
+
+        return [cho_question , cho_answer , cho_correct , "Easy"];
+
+    }
+
+
+    //difficulty : medium
+    if(current_nbq > 15 && current_nbq <= 25) {
+        var rand_qr = Math.floor(Math.random() * prodata.medium.length);
+        var rand_qr2 = Math.floor(Math.random() * prodata.medium[rand_qr].length);
+
+        var cho_question = prodata.medium[rand_qr][rand_qr2].question;
+        var cho_answer = prodata.medium[rand_qr][rand_qr2].answer;
+        var cho_correct = prodata.medium[rand_qr][rand_qr2].correct;
+
+        return [cho_question , cho_answer , cho_correct , "Medium"];
+    }
+
+
+    //difficulty : hard
+    if(current_nbq > 25 && current_nbq <= 35) {
+
+        var rand_qr = Math.floor(Math.random() * prodata.hard.length);
+        var rand_qr2 = Math.floor(Math.random() * prodata.hard[rand_qr].length);
+
+        var cho_question = prodata.hard[rand_qr][rand_qr2].question;
+        var cho_answer = prodata.hard[rand_qr][rand_qr2].answer;
+        var cho_correct = prodata.hard[rand_qr][rand_qr2].correct;
+
+        return [cho_question , cho_answer , cho_correct , "Hard"];
+
+    } 
+    
+    
+    //difficulty : very hard
+    if(current_nbq > 35 && current_nbq <= 45) {
+
+        var rand_qr = Math.floor(Math.random() * prodata.veryhard.length);
+        var rand_qr2 = Math.floor(Math.random() * prodata.veryhard[rand_qr].length);
+
+        var cho_question = prodata.veryhard[rand_qr][rand_qr2].question;
+        var cho_answer = prodata.veryhard[rand_qr][rand_qr2].answer;
+        var cho_correct = prodata.veryhard[rand_qr][rand_qr2].correct;
+
+        return [cho_question , cho_answer , cho_correct , "Very Hard"];
+
+    } else { //difficulty : extreme
+
+        var rand_qr = Math.floor(Math.random() * prodata.extreme.length);
+        var rand_qr2 = Math.floor(Math.random() * prodata.extreme[rand_qr].length);
+
+        var cho_question = prodata.extreme[rand_qr][rand_qr2].question;
+        var cho_answer = prodata.extreme[rand_qr][rand_qr2].answer;
+        var cho_correct = prodata.extreme[rand_qr][rand_qr2].correct;
+
+        return [cho_question , cho_answer , cho_correct , "Extreme"];
+
+    }
+
+    
+
+    //prodata.splice(2,1) delete 1 pair question/answers at position 2
+ 
     
    
 }

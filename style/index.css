@@ -2717,7 +2717,7 @@ input[type="checkbox"] {
 .fastdiv p {
   word-spacing: 3px;
   font-size: 2.5vmin;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color:aliceblue;
   text-shadow: rgb(96, 85, 41) 1px 0 10px;;
 }
@@ -2735,6 +2735,41 @@ input[type="checkbox"] {
   }
 
 
+}
+
+
+
+#spandiff {
+  position: absolute;
+  font-size: 2vmin;
+  right: 2%;
+  color:#E1306C;
+  text-shadow: rgb(222, 217, 197) 3px 0 10px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  /* font-style: oblique; */
+  letter-spacing: 1.2px;
+  top:2%;
+  padding: 5px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+
+.diffimg {
+  position:absolute;
+  width: 3vmin;
+  height: 3vmin;
+  right: 0;
+  margin: 2%;
+}
+
+
+@media (max-width:431px) { 
+  .diffimg  {
+    width: 5vmin;
+    height: 5vmin;
+    margin: 3%;
+  }
 }
 
 
