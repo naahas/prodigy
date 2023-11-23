@@ -29,7 +29,8 @@ const saltRounds = 10;
 
 //json files
 const prodata = require('./data.json');
-const prodata2 = require('./datanb.json')
+const prodata2 = require('./datanb.json');
+const { unescape } = require('querystring');
 
 //main const
 const app = express();
@@ -415,8 +416,8 @@ app.post('/passQroute' , function(req,res) {
 app.post('/passResult' , function(req,res) {
 
     var ptmp = [];
-    mapfastest.clear();
-    mapspeedtime.clear();
+    mapfastest.set(req.session.rid , undefined);
+    mapspeedtime.set(req.session.rid , undefined);
 
     maproomplayer.forEach((roomid,player) => {
         if(roomid == req.session.rid) ptmp.push(player);
