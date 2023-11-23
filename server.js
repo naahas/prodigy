@@ -416,8 +416,8 @@ app.post('/passQroute' , function(req,res) {
 app.post('/passResult' , function(req,res) {
 
     var ptmp = [];
-    mapfastest.set(req.session.rid , undefined);
-    mapspeedtime.set(req.session.rid , undefined);
+    mapfastest.delete(req.session.rid);
+    mapspeedtime.delete(req.session.rid);
 
     maproomplayer.forEach((roomid,player) => {
         if(roomid == req.session.rid) ptmp.push(player);
