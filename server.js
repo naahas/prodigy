@@ -550,7 +550,17 @@ app.post('/lifeRemove' , function(req,res) {
     res.redirect('/quiz');
 
     res.end();
-})
+});
+
+
+
+app.get('/mention' , function(req,res) {
+    if(req.session.user) {
+        res.sendFile(__dirname + '/mention2.html');
+    } else {
+        res.sendFile(__dirname + '/mention1.html');
+    }
+});
 
 
 

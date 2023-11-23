@@ -244,6 +244,13 @@ body{
   position: relative;
 }
 
+#maindiv3 {
+  width: 100vw;
+  min-height: 100%;
+  position: relative;
+}
+
+
 #mainback {
   position: absolute;
   z-index: -10;
@@ -260,6 +267,9 @@ body{
   object-fit: cover;
 }
 
+.mainbright0 {
+  filter: brightness(10%);
+}
 
 .mainbright {
   filter: brightness(35%);
@@ -272,6 +282,7 @@ body{
 .mainbright3 {
   filter: brightness(50%);
 }
+
 
 /* ----------------- form style --------------------- */
 
@@ -332,7 +343,6 @@ body{
 }
 
 .resetform input {
-  
   padding: 16px;
 	color: #501753;
 	font-weight: bold;
@@ -411,6 +421,71 @@ body{
   height: 28vh;
   transform: rotate(-10deg);
 }
+
+
+@media (max-width:431px) {
+  #resetdivid {
+    width: 75%;
+  }
+
+  .sendresetpic {
+    width: 20px;
+    height: 20px;
+  }
+
+  .resetform p {
+    font-size: 14px;
+  }
+
+  .resetform input {
+    font-size: 13px;
+    width: 60%;
+    height: 5vh;
+  }
+
+  .resetform button {
+    margin: 0;
+    margin-left: 2vw;
+    height: 5vh;
+  }
+
+  .forgetpic {
+    display: none;
+  }
+}
+
+
+@media screen and (orientation:landscape) and (max-width:950px)  { 
+
+  .resetform p {
+    font-size: 14px;
+  }
+
+  .resetform button {
+    margin: 0;
+    margin-left: 1vw;
+    margin-bottom: 0;
+    height: 10vh;
+  }
+
+
+  .resetform input {
+    
+    width: 60%;
+    height: 10vh;
+  }
+
+  .forgetpic {
+    width: 10vw;
+    height: 23vh;
+  }
+
+  .sendresetpic {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 
 section {
 	padding: 3px;
@@ -2956,4 +3031,78 @@ input[type="checkbox"] {
     transform: translateY(-5vh);
   }
 
+}
+
+
+.termdiv {
+  padding:50px;
+  font-family: cursive;
+  width: 80%;
+  color:azure;
+  padding-bottom: 10vh;
+}
+
+
+.termtitle {
+  display: inline-block;
+  font-family: cursive;
+  font-weight: 600;
+  font-size: 23px;
+  text-transform: uppercase;
+}
+
+.termcontent {
+  font-family: cursive;
+  margin: 6vh;
+}
+
+.termsub  {
+  font-family: cursive;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top:7vh;
+}
+
+.conditionstext {
+  line-height: 1.5em;
+  font-size: 14px;
+  word-spacing: 3px;
+}
+
+.utilisationtext {
+  line-height: 1.5em;
+  font-size: 14px;
+  word-spacing: 3px;
+}
+
+.donneetext {
+  line-height: 1.5em;
+  font-size: 14px;
+  word-spacing: 3px;
+}
+
+.termpic {
+  margin-left:1vw;
+  width: 6vw;
+  height: 19vh;
+  margin-bottom:1vh;
+  transform: rotateY(180deg)
+}
+
+
+@media (max-width:431px) { 
+
+  .termdiv {
+    text-align: center;
+    width: 90%;
+  }
+  
+  .termtitle {
+    padding: 30px;
+    font-size: 13px;
+  }
+
+  .termpic {
+    display: none;
+  }
 }

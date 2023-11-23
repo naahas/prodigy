@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="fr">
@@ -32,7 +33,7 @@
 
        <div id = "headdiv">
 
-            <div id = "logodiv" @click="reloadPage()">
+            <div id = "logodiv" @click="returnHome()">
                 <p id="logogo"> Anime Prodigy </p>
                 <!-- <img src="sword.png" alt = "sword pic"> -->
             </div>
@@ -52,14 +53,10 @@
 
         </div>
 
+        
+        <div id="maindiv3">
 
-        <div id="maindiv">
-
-            <img id="mainback" src="anime31.jpg" amt="backpic">
-
-            <div id="playbtndiv">
-                <button class="playbtn popup-btn" role="button">JOUER</button>
-            </div>
+            <img id="mainback" class="mainbright0" src="anime31.jpg" amt="backpic">
 
             <!-- forms part -->
             <div id="formdiv">
@@ -86,8 +83,7 @@
                     <input ref="logmdp_input" type="password" name="password" id="password_log" placeholder="Mot de Passe">
                     
                     <button type="submit" value="Connexion" class="formbtn formbtnlog" title="Se connecter"> Connexion </button>
-                    <a id="flinkid" class="forgotlink" title="Tu as oublié ton mot de passe ?">Mot de passe oublié ?</a>
-                    
+                   
                   </form>
       
       
@@ -110,23 +106,68 @@
             </div>
 
 
-            <div id="resetdivid" class="resetmdpdiv">
-                
-                <form @submit.prevent="resetPassword()" class="resetform" action="java">
-                    <img class="forgetpic" src="megumi.png" alt="megpic">
-                    <p> Demande de réinitialisation de mot de passe </p>
-                    <hr>
-                    <input v-model="mail_reset" type="email" name="rmail" id="remail" placeholder="Ton Mail.."> 
-                    <button> <img class="sendresetpic" src="send.png" height="30" width="30" alt="sendpic"> </button>
-                    <img class="succresetpic" src="succ.png" alt="succpic">
-                    <img class="reseterrorpic" src="errer.png" alt="errpic">
-                </form>
 
-            </div>
+            <div id="termid" class="termdiv">
 
-        
-            <div id="succsignboxid" class="bloggerspice bssuccess bstext" icon="check-circle" title="Success message">
-                <i class="fa bloggerspice-icon fa-check-circle"></i> &nbsp; Ton compte a bien été créé !
+                <h4 class="termtitle"> <img class="termpic" src="shin.png" alt="kuromipic" width="" height="">  &nbsp; Conditions et Mentions légales </h4>
+                <!-- <img  src="shin.png" alt="shinpic"> -->
+
+                <br>
+
+                <hr>
+
+                <div class="termcontent">
+
+                    <p class="termsub"> 1. &nbsp; Conditions </p>
+                    
+                    <p class="conditionstext"> 
+                        En accédant au site web Anime Prodigy , vous acceptez d'être lié par les présentes conditions 
+                        générales d'utilisation du site Web et acceptez également que vous êtes responsable de l'accord avec toutes
+                        les lois locales exposées. Si vous êtes en désaccord avec l'une des conditions de cette page , il vous est interdit
+                        d'accéder à ce site. Les éléments contenus dans ce site sont protégés par le droit d'ateur et le droit des marques.
+                    </p>
+
+                    <p class="termsub"> 2. &nbsp; Utilisation </p>
+
+                    <p class="utilisationtext"> 
+                         Vous n'acceptez de n'utiliser Anime Prodigy que dans le cadre du Contrat et conformément aux lois 
+                         applicables. Si vous utilisez Anime Prodigy dans un contexte de violation du Contrat ou des lois 
+                         applicables, votre compte pourrait être résilier et votre utilisation du 
+                         site Web peut être suspendu. Votre compte est personnel et destiné uniquement à votre usage, 
+                         que ce soit à titre privé ou professionel. Il n'est pas recommandé de partager son compte.
+                         
+                         Lors d'une inscription de votre part , vous déclarez et garantissez que les 
+                         informations saisies sont exactes. 
+                    </p>
+
+                    <p class="termsub"> 3. &nbsp; Protection des données </p>
+
+                    <p class="donneetxt">
+                        En plus de ces conditions , notre politique de confidentialité garantie la collecte en milieu privé de vos données cryptées 
+                        et la protection de celles-ci. Plus particulièrement , nous garantisson les choses suivantes : 
+                         <ul>
+
+                            <li>
+                                Vos informations personnelles ne seront pas collectés dans le but d'être 
+                                exposées , quelque soit le milieu. 
+                            </li>
+
+                            <li>
+                                Nous ne conservons les informations personnelles des utilisateurs dans le cadre
+                                de la limite indiquée.
+                            </li>
+
+                            <li>
+                                Vos informations personnelles sont sécurisées grâce a un cryptage de données , pare-feu. 
+                            </li>
+
+                         </ul>
+                        
+                    </p>
+
+                </div>
+
+
             </div>
 
     
@@ -139,7 +180,7 @@
                         <div class="col-sm-4 col-md-3 item">
                             <h3>A propos</h3>
                             <ul>
-                                <li><a class="yetclass" href="/mention">Mentions Légales</a></li>
+                                <li><a class="yetclass" href="#">Mentions Légales</a></li>
                                 <li><a class="notyetclass" href="#">Equipe</a></li>
                                 <li><a class="notyetclass" href="#">Contact</a></li>
                             </ul>
