@@ -8,8 +8,9 @@ body{
 #headdiv {
     width: 100vw;
     height: 10vh;
-    background-color: rgb(5, 18, 2);
+    background-color: rgb(3, 17, 27);
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-bottom: 1px ridge rgba(89, 91, 94, 0.41);
   }
 
   @media (max-width:431px) { 
@@ -29,7 +30,7 @@ body{
 
 #logodiv {
     top:2.2vh;
-    left:4vw;
+    left:2.5vw;
     padding: 2px;
     position: relative;
     display: inline-block;
@@ -51,45 +52,49 @@ body{
 
 }
 
-
-#logodiv span {
-    font-family: "Enriqueta", serif;
-    font-size: 17px;
+#logodiv p {
+    font-family: cursive;
+    font-size: 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 450;
     color:rgb(198, 239, 241);
-    text-shadow: 15px 14px #cfd7df, 15px 10px #bbcee0, 14px 12px #d3dbe1, 15px 12px rgb(213, 220, 225)#0b2d4d,
-             15px 13px #e4eaf0, 15px 15px #e9edf1, 14px 13px #d0dce8, 14px 16px #b6c0c9;            
+    text-shadow: rgb(37, 225, 228) 1px 0 10px;         
 }
 
 @media screen and (orientation:landscape) and (max-width:950px) { 
-  #logodiv span  {
+  #logodiv p  {
     font-size: 12px;
   }
 }
  
- 
- /* iphone */
- @media (max-width:431px) {
-   #logodiv span {
-     font-size: 13px;
-   }
- }
+
 
 #logodiv img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
-
 @media (max-width:431px) {
+
+  #logodiv {
+    left:5vw;
+    top:2vh;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 10px;
+  }
+
+  #logodiv p {
+    font-size: 11px;
+  }
   #logodiv img {
     width: 20px;
     height: 20px;
     margin-left:10px;
   }
 }
+
 
 
 @media screen and (orientation:landscape) and (max-width:950px)  {
@@ -148,19 +153,18 @@ body{
 #logdiv {
   position: relative;
   float:right;
-  right: 8vw;
+  right: 7vw;
   top:2.2vh;
   color: azure;
 }
 
-
-
 #logdiv button {
     padding: 2px;
     background-color: transparent;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family:cursive;
+    font-weight: 450;
     border:0;
-    font-size: 17px;
+    font-size: 15px;
     letter-spacing: 3px;
     text-shadow: rgb(37, 225, 228) 1px 0 10px;
     text-decoration:none;
@@ -177,7 +181,7 @@ body{
 
 @media (max-width:431px) {
   #logdiv {
-    right: 5vw;
+    right: 8vw;
     top:2.2vh;
   }
 }
@@ -189,14 +193,14 @@ body{
   }
 
   #logdiv img {
-    width: 20px;
-    height: 20px;
+    width: 17px;
+    height: 17px;
   }
 }
 
 @media (max-width:431px) {
   #logdiv button {
-    font-size: 13.5px;   
+    font-size: 11px;   
   }
 }
 
@@ -274,9 +278,8 @@ body{
 #formdiv {
   display: none;
   position: absolute;
-  right: 0;
+  right: 2%;
   z-index: 5;
-  margin-right: 5.5%;
   font-family: Georgia, 'Times New Roman', Times, serif;
 
 }
@@ -2190,7 +2193,8 @@ input[type="checkbox"] {
 
 #headquestion {
   color:#d0e7f1;
-  font-family: 'Times New Roman', Times, serif;
+  /* font-family: 'Times New Roman', Times, serif; */
+  font-family: cursive;
   margin: 1em;
   text-transform: uppercase;
   font-size: 17px;
@@ -2198,7 +2202,8 @@ input[type="checkbox"] {
 
 #mainquestion {
   color:#eefaff;
-  font-family: 'Times New Roman', Times, serif;
+  /* font-family: 'Times New Roman', Times, serif; */
+  font-family: cursive;
   margin: 1.5em;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -2281,7 +2286,8 @@ input[type="checkbox"] {
   text-transform: uppercase;
   font-size: 15.5px;
   color:rgb(41, 99, 99);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+  font-family: cursive;
   width: 75%;
   min-height: 8.5vh;
   border: 5px double rgb(47, 91, 129);
@@ -2335,6 +2341,54 @@ input[type="checkbox"] {
     width: 85%;
     font-size: 13.5px;
   }
+
+}
+
+
+@media screen and (orientation:landscape) and (max-width:950px) { 
+ 
+  .titlequestiondiv {
+    max-width: 50%;
+  }
+
+
+  #headquestion {
+    font-size: 14px;
+  }
+
+  #mainquestion {
+    font-size: 12px;
+  }
+ 
+  .questiondiv {
+    width: 70%;
+    top:25%;
+  }
+
+  .questiondiv ul {
+    display:grid;
+    grid-template-columns: 50% 50%;
+    grid-row: auto auto;
+    column-gap: 20px ;
+    row-gap: 20px;
+  }
+
+  .questiondiv ul li {
+    padding: 10px;
+    display: flex;
+    margin-left:0%;
+    margin-top:0vh;
+  }
+
+  
+
+  .btnres {
+    font-size: 13px;
+    width: 90%;
+    min-height: 14vh;
+    padding: 10px;
+  }
+
 
 }
 
@@ -2772,8 +2826,134 @@ input[type="checkbox"] {
   }
 }
 
+@media screen and (orientation:landscape) and (max-width:950px) { 
+  .diffimg  {
+    width: 4vmin;
+    height: 4vmin;
+    margin: 3%;
+  }
+}
+
+
+.lostlink {
+  font-size: 20px;
+  text-decoration: none;
+  color:rgb(0, 174, 255);
+}
+
+
+.lostlink:hover {
+  text-decoration: underline;
+}
+
+
+.shaerrorpic {
+  position: absolute;
+  top:10vh;
+  right: 0;
+  left:0;
+  margin: auto;
+  width: 10vw;
+  animation: sharinganInfinite 11s linear infinite;
+}
+
+
+.shaerrorpic2 {
+  position: absolute;
+  right: 0;
+  left:0;
+  bottom: 10vh;
+  margin: auto;
+  width: 10vw;
+  animation: sharinganInfinite2 11s linear infinite;
+}
 
 
 
+@keyframes sharinganInfinite {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 
+@keyframes sharinganInfinite2 {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+
+.bstext{
+  color:#FFF;margin-bottom:15px;border-radius:3px;padding:10px
+}
+
+.bssuccess{
+  display: none;
+  opacity: 0;
+  font-family: cursive;
+  font-size: 14px;
+  text-align: center;
+  border: 2px double #364e30d7;
+  background-color:#6ab459f8;
+  width: 30%;
+  position: absolute;
+  z-index: 99;
+  bottom: 0;
+  right: 0;
+  left:0;
+  margin:auto;
+  animation: popSignSuccess 0.5s ease-in-out forwards;
+}
+
+
+@media (max-width:431px) { 
+  .bssuccess {
+    font-size: 12px;
+    width: 55%;
+  }
+}
+
+
+.bssuccess:hover {
+  cursor: pointer;
+  background-color:#7cac72f8;
+}
+
+.headertext > .fa{
+  margin-right:5px
+}
+
+.bloggerspice {
+  overflow: hidden;
+}
+
+
+@keyframes popSignSuccess {
+
+  0% {
+   
+  }
+
+
+  60% {
+    opacity: 1;
+    transform: translateY(-7vh);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-5vh);
+  }
+
+}

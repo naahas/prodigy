@@ -154,6 +154,15 @@ var mapspeedtime = new Map();
 app.get('/' , function(req,res) {
     if(req.session.log) res.redirect('/home');
     else res.sendFile(__dirname + "/index.html");
+
+    if(req.session.didCreate == true) {
+        req.session.didCreate = false;
+
+        io.once('connection' , (socket) => {
+            socket.emit('successRegisterEvent');
+        }); 
+
+    } 
 });
  
 
@@ -612,7 +621,7 @@ app.post('/register' , function(req,res) {
                     db.query(`insert into user (username,usermail,usermdp) values (?,?,?)`, [username , mail , hash]);
                 });
 
-        
+                req.session.didCreate = true;
                 res.sendStatus(202);
             }
                 

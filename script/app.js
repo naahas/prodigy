@@ -528,6 +528,16 @@ var app = new Vue({
    
     mounted: async function() {
 
+       socket.on('successRegisterEvent' , () => {
+
+            setTimeout(() => {
+                $('.bssuccess').show();
+            }, 1000);
+
+            setTimeout(() => {
+                $('.bssuccess').fadeOut();
+            }, 3500);
+       });
 
        socket.on('endForPlayer' , () => {
             updateEndPlayerData();
@@ -625,9 +635,16 @@ var app = new Vue({
 
 
 //JQUERY AND JS SECTION
+
+$('.bssuccess').on('click' , function() {
+    $(this).hide();
+});
+
+
 $('#remail').on('click' , function() {
     $(this).attr('placeholder' , null);
 });
+
 
 $('.forgotlink').on('click' , function() {
     $('.resetmdpdiv').show();
@@ -702,6 +719,13 @@ if(document.getElementById('generalpop')) {
        document.getElementById('pop2').style.filter = 'brightness(90%)';
     });
 }
+
+
+// if(document.getElementById('logogo')) {
+//     if(window.innerWidth < 432) {
+//         $('#logogo').text('Anime Prodigy');
+//     }
+// }
 
 
 document.addEventListener('click', function handleClickOutsideBox(event) {
@@ -881,6 +905,8 @@ document.addEventListener('click' , function handleClickOutsideBox3(event) {
     }
 
 });
+
+
 
 
 document.addEventListener('click' , function hideForgetArea(event) {
