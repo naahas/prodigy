@@ -1,0 +1,35 @@
+CREATE TABLE `hostroom` (
+	`host` varchar(255) NOT NULL,
+	`roomid` varchar(255),
+	UNIQUE KEY `host` (`host`)
+) ENGINE InnoDB,
+  CHARSET utf8mb4,
+  COLLATE utf8mb4_0900_ai_ci;
+
+
+
+
+
+CREATE TABLE `joinroom` (
+	`userjoin` varchar(255) NOT NULL,
+	`roomid` varchar(255),
+	UNIQUE KEY `userjoin` (`userjoin`)
+) ENGINE InnoDB,
+  CHARSET utf8mb4,
+  COLLATE utf8mb4_0900_ai_ci;
+
+
+
+
+
+
+CREATE TABLE `user` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`username` varchar(255),
+	`usermail` varchar(255),
+	`usermdp` varchar(255),
+	`userwin` int DEFAULT '0',
+	PRIMARY KEY (`id`)
+) ENGINE InnoDB,
+  CHARSET utf8mb4,
+  COLLATE utf8mb4_0900_ai_ci;

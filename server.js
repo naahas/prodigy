@@ -31,6 +31,7 @@ const saltRounds = 10;
 const prodata = require('./data.json');
 const prodata2 = require('./datanb.json');
 const { unescape } = require('querystring');
+const { callbackPromise } = require('nodemailer/lib/shared');
 
 //main const
 const app = express();
@@ -148,8 +149,9 @@ var mappostlife = new Map();
 var mapregainlife = new Map();
 var mapgamestart = new Map();
 var mapfastest = new Map();
-var mapcomparespeed = new Map();
+var mapcollectquestion = new Map();
 var mapspeedtime = new Map();
+
 
 //path handle
 app.get('/' , function(req,res) {
@@ -195,7 +197,7 @@ app.post('/play' , function(req,res) {
                 db.query(`insert into hostroom (host,roomid) values (?,?)`, [req.session.user , roomID]);
                 req.session.rid = roomID;
                 mapquestionb.set(req.session.rid , 1);
-                mapdataquiz.set(req.session.user , generateQuestionAllOrder(req));
+                retrieveData("order" , req);               
                 rooms.push(roomID);
                 current_hostusers.push(req.session.user);
                 mappassed.set(req.session.rid , "ip0");
@@ -447,6 +449,13 @@ app.post('/passResult' , function(req,res) {
             reset_room(req.session.user)
             res.send('endGame');
 
+            mapcollectquestion.forEach((roomid,question) => {
+                if(req.session.rid == roomid) {
+                    db.query(`update data set used = false where question = ?` , question);
+                }
+            });
+
+
         // no more player
         } else {
 
@@ -454,7 +463,7 @@ app.post('/passResult' , function(req,res) {
                 if(life == 1) mapregainlife.set(user , 'true');
             });
 
-            mapdataquiz.set(req.session.user , generateQuestionAllOrder(req));
+            retrieveData("order" , req); 
             mappassed.set(req.session.rid , "ip0");
             maptimeplayerleft.set(req.session.user , 11);
             mapprogress.set(req.session.user , false);
@@ -473,7 +482,7 @@ app.post('/passResult' , function(req,res) {
 
     } else {
 
-        mapdataquiz.set(req.session.user , generateQuestionAllOrder(req));
+        retrieveData("order" , req); 
         mappassed.set(req.session.rid , "ip0");
         maptimeplayerleft.set(req.session.user , 11);
         mapprogress.set(req.session.user , false);
@@ -513,7 +522,7 @@ app.post('/updatePlayerEndgame' , function(req,res) {
 
 
 app.post('/endGame' , function(req,res) {
-    
+
      res.redirect('/endGame')
 });
 
@@ -649,7 +658,6 @@ app.post('/register' , function(req,res) {
 
 //after click on return button (=> reset game player data)
 app.post('/resetGame' , function(req,res) {
-
     
     if(req.session.host == true) {
         req.session.host = false;
@@ -1015,103 +1023,250 @@ function generateRoomID(code_length) {
 // console.log(Object.getOwnPropertyNames(prodata.veryeasy[1][0]))
 
 
-
-
 function generateQuestionAllOrder(req) {
 
     var current_nbq = mapquestionb.get(req.session.rid);
+    var cho_question;
+    var cho_answer = [];
+    var cho_correct;
+
 
     //difficulty : very easy 
     if(current_nbq <= 5) {
-        var rand_qr = Math.floor(Math.random() * prodata.veryeasy.length);
-        var rand_qr2 = Math.floor(Math.random() * prodata.veryeasy[rand_qr].length);
 
-        var cho_question = prodata.veryeasy[rand_qr][rand_qr2].question;
-        var cho_answer = prodata.veryeasy[rand_qr][rand_qr2].answer;
-        var cho_correct = prodata.veryeasy[rand_qr][rand_qr2].correct;
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'veryeasy' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
-        return [cho_question , cho_answer , cho_correct , "Very easy"];
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
 
-    } 
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Very easy"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    }
 
 
-    //difficulty : easy
     if(current_nbq > 5 && current_nbq <= 15) {
-        var rand_qr = Math.floor(Math.random() * prodata.easy.length);
-        var rand_qr2 = Math.floor(Math.random() * prodata.easy[rand_qr].length);
 
-        var cho_question = prodata.easy[rand_qr][rand_qr2].question;
-        var cho_answer = prodata.easy[rand_qr][rand_qr2].answer;
-        var cho_correct = prodata.easy[rand_qr][rand_qr2].correct;
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'easy' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
-        return [cho_question , cho_answer , cho_correct , "Easy"];
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
 
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Easy"]);
+
+                }
+               
+            });
+
+        })
+    
     }
 
 
-    //difficulty : medium
-    if(current_nbq > 15 && current_nbq <= 25) {
-        var rand_qr = Math.floor(Math.random() * prodata.medium.length);
-        var rand_qr2 = Math.floor(Math.random() * prodata.medium[rand_qr].length);
+    if(current_nbq > 15 && current_nbq <= 27) {
 
-        var cho_question = prodata.medium[rand_qr][rand_qr2].question;
-        var cho_answer = prodata.medium[rand_qr][rand_qr2].answer;
-        var cho_correct = prodata.medium[rand_qr][rand_qr2].correct;
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'medium' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
-        return [cho_question , cho_answer , cho_correct , "Medium"];
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Medium"]);
+
+                }
+               
+            });
+
+        })
+    
+    
     }
 
 
-    //difficulty : hard
-    if(current_nbq > 25 && current_nbq <= 35) {
+    if(current_nbq > 27 && current_nbq <= 35) {
 
-        var rand_qr = Math.floor(Math.random() * prodata.hard.length);
-        var rand_qr2 = Math.floor(Math.random() * prodata.hard[rand_qr].length);
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'hard' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
-        var cho_question = prodata.hard[rand_qr][rand_qr2].question;
-        var cho_answer = prodata.hard[rand_qr][rand_qr2].answer;
-        var cho_correct = prodata.hard[rand_qr][rand_qr2].correct;
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
 
-        return [cho_question , cho_answer , cho_correct , "Hard"];
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
 
-    } 
+                    resolve([cho_question , cho_answer , cho_correct , "Hard"]);
+
+                }
+               
+            });
+
+        })
     
     
-    //difficulty : very hard
+    }
+
+
+
     if(current_nbq > 35 && current_nbq <= 45) {
 
-        var rand_qr = Math.floor(Math.random() * prodata.veryhard.length);
-        var rand_qr2 = Math.floor(Math.random() * prodata.veryhard[rand_qr].length);
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'veryhard' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
-        var cho_question = prodata.veryhard[rand_qr][rand_qr2].question;
-        var cho_answer = prodata.veryhard[rand_qr][rand_qr2].answer;
-        var cho_correct = prodata.veryhard[rand_qr][rand_qr2].correct;
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
 
-        return [cho_question , cho_answer , cho_correct , "Very Hard"];
+                    mapcollectquestion.set(cho_question , req.session.rid);                    
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
 
-    } else { //difficulty : extreme
+                    resolve([cho_question , cho_answer , cho_correct , "Very Hard"]);
 
-        var rand_qr = Math.floor(Math.random() * prodata.extreme.length);
-        var rand_qr2 = Math.floor(Math.random() * prodata.extreme[rand_qr].length);
+                }
+               
+            });
 
-        var cho_question = prodata.extreme[rand_qr][rand_qr2].question;
-        var cho_answer = prodata.extreme[rand_qr][rand_qr2].answer;
-        var cho_correct = prodata.extreme[rand_qr][rand_qr2].correct;
+        })
+    
+    
+    } else {
 
-        return [cho_question , cho_answer , cho_correct , "Extreme"];
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'extreme' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Extreme"]);
+
+                }
+               
+            });
+
+        })
 
     }
 
-    
+
 
     //prodata.splice(2,1) delete 1 pair question/answers at position 2
- 
-    
-   
 }
 
 
+
+async function asyncGenOverallOrder(req) {
+    try {
+        const resquery = await generateQuestionAllOrder(req);
+        return resquery;
+
+    } catch (error) {
+        console.log("async query error" , error);
+
+    } finally {
+        // db.end();
+    }
+}
+
+
+
+
+function retrieveData(val , req) {
+
+    if(val == 'order') {
+        
+        asyncGenOverallOrder(req).then((res) => {
+            
+            mapdataquiz.set(req.session.user , res);
+
+          }).catch((error) => {
+             return error;
+          });
+        }
+        
+}
+
+
+// gengen().then((message) => {
+//     console.log(message); // Opération réussie
+//   }).catch((erreur) => {
+//     console.error(erreur.message); // Erreur lors de la requête
+//   });
+
+
 function generateMillisecond(timef) {
+
     var rmm = timef + 1;
     var rm = Math.random() * (rmm - timef) + timef;
 
@@ -1141,8 +1296,13 @@ function reset_room(dhost) {
 
 
 function reset_db() {
-    // db.query(`delete from hostroom`);
-    // db.query(`delete from joinroom`);
+    db.query(`delete from hostroom`);
+    db.query(`delete from joinroom`);
+}
+
+
+function reset_data() {
+    db.query(`update data set used = false`);
 }
 
 
@@ -1217,6 +1377,7 @@ function associate_ph(username , urid) {
 server.listen(process.env.PORT || 7000 , function(err) {
     if(err) throw err;
     reset_db();
+    reset_data();
     console.log("-------------------");
     console.log("Server on " , server.address().port);
 
