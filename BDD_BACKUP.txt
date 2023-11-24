@@ -33,3 +33,21 @@ CREATE TABLE `user` (
 ) ENGINE InnoDB,
   CHARSET utf8mb4,
   COLLATE utf8mb4_0900_ai_ci;
+
+
+
+
+  CREATE TABLE `data` (
+	`question` varchar(255) NOT NULL,
+	`answerd1` varchar(255),
+	`answerd2` varchar(255),
+	`answerd3` varchar(255),
+	`answerd4` varchar(255),
+	`answerdx` varchar(255),
+	`manga` varchar(255),
+	`difficulty` varchar(255),
+	`used` tinyint(1) DEFAULT '0',
+	UNIQUE KEY `question` (`question`)
+) ENGINE InnoDB,
+  CHARSET utf8mb4,
+  COLLATE utf8mb4_0900_ai_ci;
