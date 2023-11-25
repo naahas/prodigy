@@ -516,17 +516,19 @@ var app = new Vue({
 
     created:  function() {
 
-        socket.on('startTimerEvent' , (s_time , coanswer , playerfinalnb , plife) => {
-            this.playerlife = plife;
-            this.finalAnswernb = playerfinalnb;
-            startTimer(s_time , coanswer , playerfinalnb , plife);
-        });
-
-
+       
     },
 
    
     mounted: async function() {
+
+
+        socket.on('startTimerEvent' , (s_time , coanswer , playerfinalnb , plife) => {
+            this.c_timer = s_time;
+            this.playerlife = plife;
+            this.finalAnswernb = playerfinalnb;
+            startTimer(s_time , coanswer , playerfinalnb , plife);
+        });  
 
        socket.on('successRegisterEvent' , () => {
 
@@ -1580,6 +1582,8 @@ function showFirstPlayer(name , time) {
     
 
 }
+
+
 
 
 

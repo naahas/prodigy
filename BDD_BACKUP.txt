@@ -51,3 +51,7 @@ CREATE TABLE `user` (
 ) ENGINE InnoDB,
   CHARSET utf8mb4,
   COLLATE utf8mb4_0900_ai_ci;
+
+
+
+  insert into data (question , answerd1 , answerd2 , answerd3 , answerd4 , answerdx , manga , difficulty) values ("Qui est le père de Naruto Uzumaki ?" , "Hashirama Senju" , "Minato Namikaze" , "Hiruzen Sarutobi" , "Nagato Uzumaki" , 2 , "Naruto" , "veryeasy");
