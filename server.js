@@ -27,12 +27,6 @@ require('dotenv').config();
 //for bcryptjs
 const saltRounds = 10;
 
-//json files
-const prodata = require('./data.json');
-const prodata2 = require('./datanb.json');
-const { unescape } = require('querystring');
-const { callbackPromise } = require('nodemailer/lib/shared');
-
 //main const
 const app = express();
 const server = createServer(app);
@@ -1052,12 +1046,6 @@ function generateRoomID(code_length) {
 
 
 
-// prodata2.forEach(manga => {
-//     if(Object.getOwnPropertyNames(manga) == "Naruto") console.log(manga.Naruto)
-// });
-// console.log(Object.getOwnPropertyNames(prodata.veryeasy[1][0]))
-
-
 function generateQuestionAllOrder(req) {
 
     var current_nbq = mapquestionb.get(req.session.rid);
@@ -1256,7 +1244,6 @@ function generateQuestionAllOrder(req) {
 
 
 
-    //prodata.splice(2,1) delete 1 pair question/answers at position 2
 }
 
 
