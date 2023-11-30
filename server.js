@@ -281,7 +281,6 @@ app.post('/quiz' , function(req,res) {
 
 app.get('/quiz' , function(req,res) {
 
-
     //force remove life when player reload at last second and glitch
     if(req.session.hasToBeRemove == true) {
 
@@ -289,6 +288,8 @@ app.get('/quiz' , function(req,res) {
 
             if(maptimeplayerleft.get(req.session.user) <= 0) {
                 req.session.life --;
+                mappostlife.set(req.session.user , req.session.life);
+                if(req.session.life <= 0) maproomplayer.delete(req.session.user);   
                 req.session.hasToBeRemove = false;
                 console.log("glitch toggled")
             }
@@ -300,6 +301,8 @@ app.get('/quiz' , function(req,res) {
 
             if(maptimeplayerleft.get(myhost) <= 0) {
                 req.session.life --;
+                mappostlife.set(req.session.user , req.session.life);
+                if(req.session.life <= 0) maproomplayer.delete(req.session.user);  
                 req.session.hasToBeRemove = false;
                 console.log("glitch toggled")
             }
@@ -308,7 +311,6 @@ app.get('/quiz' , function(req,res) {
         }
 
     }
-
 
     
     //add life to player who had 0 lives when game is over when everyone else have 0 lives too 
@@ -487,6 +489,7 @@ app.post('/passResult' , function(req,res) {
         // no more player
         } else {
 
+            console.log("wsh sonper")
             mapprelife.forEach((life , user) => {
                 if(life == 1) mapregainlife.set(user , 'true');
             });
@@ -577,11 +580,15 @@ app.get('/result' , function(req,res) {
 
 
 app.post('/lifeRemove' , function(req,res) {
-    
-    if(req.session.life > 0) req.session.life--;
-    mappostlife.set(req.session.user , req.session.life);
-    if(req.session.life <= 0) maproomplayer.delete(req.session.user);
-    req.session.hasToBeRemove = false;
+
+    if(req.session.hasToBeRemove == true) {
+
+        if(req.session.life > 0) req.session.life--;
+        mappostlife.set(req.session.user , req.session.life);
+        if(req.session.life <= 0) maproomplayer.delete(req.session.user);
+        req.session.hasToBeRemove = false;
+
+    }
           
     res.redirect('/quiz');
 
