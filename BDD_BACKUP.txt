@@ -55,3 +55,6 @@ CREATE TABLE `user` (
 
 
   insert into data (question , answerd1 , answerd2 , answerd3 , answerd4 , answerdx , manga , difficulty) values ("Qui est le père de Naruto Uzumaki ?" , "Hashirama Senju" , "Minato Namikaze" , "Hiruzen Sarutobi" , "Nagato Uzumaki" , 2 , "Naruto" , "veryeasy");
+
+
+insert into data (question , answerd1 , answerd2 , answerd3 , answerd4 , answerdx , manga , difficulty ) values ("" , "" , "" , "" , "" ,  , "" , "");

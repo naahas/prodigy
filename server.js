@@ -155,6 +155,7 @@ var mapspeedtime = new Map();
 
 //path handle
 app.get('/' , function(req,res) {
+    
     if(req.session.log) res.redirect('/home');
     else res.sendFile(__dirname + "/index.html");
 
