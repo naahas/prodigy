@@ -65,14 +65,12 @@ const db = new mysql.createConnection({
 
 
 
-
 db.connect(function (err) {
     if(err) throw err;
     console.log('-------------------')
     console.log("Database connected");
     console.log("-------------------");
 })
-
 
 
 //session middleware
@@ -1366,6 +1364,29 @@ function associate_ph(username , urid) {
 
 
 
+function update_backup_data() {
+
+    db.query(`select * from data` , function (err,result,fields) {
+        if(err) throw err;
+    
+        result.forEach(qdata => {
+    
+            var insert = 'insert into data (question , answerd1 , answerd2 , answerd3 , answerd4 , answerdx , manga , difficulty) values ('  + '"' +  qdata.question + '"' + " , "  + '"' +  qdata.answerd1 + '"'  + " , " + '"' + qdata.answerd2 + '"' + " , " + '"' + qdata.answerd3 + '"' + " , " + '"' + qdata.answerd4 + '"' + " , " + qdata.answerdx + " , " + '"' + qdata.manga + '"' + " , " + '"' + qdata.difficulty + '" );\n';
+    
+    
+                fs.appendFile('./BDD_BACKUP_DATA.txt' , insert , function(err) {
+                if(err) return err;
+            
+            })
+        });
+        
+       
+            
+    });
+
+    console.log("backup data done");
+
+}
 
 
 
