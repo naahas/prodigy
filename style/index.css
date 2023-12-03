@@ -63,6 +63,8 @@ body{
 }
 
 @media screen and (orientation:portrait) and (max-width:950px) { 
+
+
   #logodiv p  {
     font-size: 12px;
   }
@@ -87,8 +89,13 @@ body{
 
 
 @media screen and (orientation:landscape) and (max-width:950px)  {
+  
+  #logodiv {
+    top:3.5vh;
+  }
+
   #logodiv p  {
-    font-size: 11px;
+    font-size: 2.5vmin;
   }
 }
 
@@ -98,179 +105,6 @@ body{
    left:15%;
    width: 70%;
    height: 100%;
-}
-
-.navelement {
-  top:2.2vh;
-}
-
-
-#navdiv a:hover {
-  color: rgb(120, 148, 153);
-
- 
-}
-
-
-#dropbtnmode {
-  border: none;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 2.1vmin;
-  color: rgb(199, 231, 237);
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  background-color: transparent;
-  width: 10vw;
-  margin-bottom: 1em;
-}
-
-#dropbtnmode:hover {
-  opacity: 0.7;
-}
-
-
-.storelink {
-  position: absolute;
-  left:25%;
-  text-decoration: none;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 2.1vmin;
-  color: rgb(199, 231, 237);
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  padding: 2px;
-}
-
-
-.typepic {
-  position: absolute;
-  right: 1.3vw;
-  margin: 3px;
-  width: 12px;
-  height: 12px;
-  transform: rotate(-90deg);
-  animation: moveType 0.2s ease-in-out ;
-}
-
-
-
-#dropbtnmode img {
-  width: 15px;
-  height: 15px;
-  margin-left:5px;
-}
-
-.dropdown {
-  left:60%;
-  width: 9.5vw;
-  justify-self: center;
-  display: inline-block;
-}
-
-.dropdown-menu {
-  background-color: rgb(3, 17, 27);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-  margin:0;
-  padding: 0;
-  
-}
-
-.dropdown-menu li {
-  text-transform: uppercase;
-  width: 100%;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 2vmin;
-  height: 8vh;
-  display: table;
-}
-
-.toolpic {
-  height: 15px;
-  width: 15px;
-  position: absolute;
-  right: 0.5vw;
-  margin:0.7vh;
-}
-
-.limode3 {
-  background-color:rgb(165, 203, 237 , 0.3);
-  opacity: 0.5;
-  
-}
-
-.selectedmodeclass {
-  background-color:rgb(165, 203, 237 , 0.3);
-  opacity: 0.5;
-}
-
-
-
-.linow {
-  opacity: 0.9;
-  text-align: center;
-}
-
-
-.dropdown-menu li a , .dropdown-menu li p {
-  text-decoration: none;
-  color:aliceblue;
-  pointer-events: none;
-  vertical-align: middle;
-  display: table-cell;
-  letter-spacing: 1px;
-}
-
-.limode:hover {
-  background-color:rgb(165, 203, 237 , 0.3);
-  cursor:pointer;
-}
-
-
-.currentmodetxt {
-  letter-spacing: 5px;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  color:azure;
-  font-size: 1.8vmin;
-  text-shadow: rgb(173, 160, 111) 1px 0 10px;
-}
-
-
-
-
-.dropdown:hover>.dropdown-menu {
-  display: block;
-}
-
-.dropdown>.dropdown-toggle:active {
-  /*Without this, clicking will make it sticky*/
-    pointer-events: none;
-}
-
-
-@media screen and (orientation:landscape) and (max-width:950px)  {
-
-  .dropdown {
-    left:70%;
-  }
-
-  #dropbtnmode {
-    
-  }
-
-
-
-  #dropbtnmode img {
-    width: 10px;
-    height: 10px;
-  }
-
-
-  .storelink {
-    top:4vh;
-  }
-
-
 }
 
 
@@ -336,7 +170,7 @@ body{
 
 @media screen and (orientation:landscape) and (max-width:950px) { 
   #logdiv button  {
-    font-size: 12px;
+    font-size: 2.5vmin;
   }
 }
 
