@@ -81,6 +81,7 @@ body{
 
   #logodiv p {
     margin-left:20%;
+    font-size: 2.5vmin;
   }
   
 }
@@ -154,7 +155,7 @@ body{
   }
 
   #logdiv button  {
-   
+    font-size: 2.7vmin;
   }
 
 
@@ -503,11 +504,11 @@ section {
 input,
 .formbtn {
 	border-radius: 48px;
-	padding: 2vmin 2.5vmin;
+	padding: 15px 20px;
 	margin-bottom: 15px;
 	border: none;
 	outline: none;
-	font-size: 1.5vmin;
+	font-size: 2vmin;
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
