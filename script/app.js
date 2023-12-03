@@ -805,7 +805,7 @@ function editHome(username) {
 
     app.logged_user = username;
 
-    if(app.logged_user != 'SLAYER' && app.logged_user != 'slayer') {
+    if(app.logged_user != 'SLAYER' && app.logged_user != 'slayer'&& app.logged_user != 'admin' && app.logged_user != 'ADMIN') {
         $('#createbtn').prop('disabled' , true);
         $('.popright').attr('title' , 'Available Soon');
         $('.popright').css('cursor' , 'not-allowed');
