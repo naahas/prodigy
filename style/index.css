@@ -30,7 +30,7 @@ body{
 
 #logodiv {
     left:3%;
-    top:2.2vh;
+    top:2.1vh;
     position: absolute;
     display: inline-block;
     -webkit-mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
@@ -116,7 +116,7 @@ body{
   border: none;
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-size: 2.2vmin;
+  font-size: 2.1vmin;
   color: rgb(199, 231, 237);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   background-color: transparent;
@@ -217,7 +217,7 @@ body{
   text-decoration: none;
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-size: 2.2vmin;
+  font-size: 2.1vmin;
   color: rgb(199, 231, 237);
   /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -286,7 +286,7 @@ body{
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 450;
     border:0;
-    font-size: 15px;
+    font-size: 2.1vmin;
     letter-spacing: 3px;
     text-shadow: rgb(37, 225, 228) 1px 0 10px;
     text-decoration:none;
