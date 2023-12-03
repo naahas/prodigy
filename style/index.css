@@ -120,12 +120,26 @@ body{
   color: rgb(199, 231, 237);
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   background-color: transparent;
-  width: 11vw;
+  width: 10vw;
   margin-bottom: 1em;
 }
 
 #dropbtnmode:hover {
   opacity: 0.7;
+}
+
+
+.storelink {
+  position: absolute;
+  left:25%;
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 2.1vmin;
+  color: rgb(199, 231, 237);
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 2px;
 }
 
 
@@ -149,7 +163,7 @@ body{
 
 .dropdown {
   left:60%;
-  width: 10vw;
+  width: 9.5vw;
   justify-self: center;
   display: inline-block;
 }
@@ -167,7 +181,6 @@ body{
   width: 100%;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 2vmin;
-  text-align: center;
   height: 8vh;
   display: table;
 }
@@ -183,6 +196,7 @@ body{
 .limode3 {
   background-color:rgb(165, 203, 237 , 0.3);
   opacity: 0.5;
+  
 }
 
 .selectedmodeclass {
@@ -194,6 +208,7 @@ body{
 
 .linow {
   opacity: 0.9;
+  text-align: center;
 }
 
 
@@ -209,19 +224,6 @@ body{
 .limode:hover {
   background-color:rgb(165, 203, 237 , 0.3);
   cursor:pointer;
-}
-
-.storelink {
-  position: absolute;
-  left:25%;
-  text-decoration: none;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 2.1vmin;
-  color: rgb(199, 231, 237);
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  padding: 2px;
 }
 
 
