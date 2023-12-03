@@ -30,7 +30,7 @@ body{
 
 
 #logodiv {
-    width: 25%;
+    width: 30%;
     display: table-cell;
     -webkit-mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
     mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
@@ -100,7 +100,7 @@ body{
 
 
 #navdiv {
-   width: 60%;
+   width: 50%;
    text-align: center;
    height: 100%;
    display: table-cell;
@@ -109,15 +109,14 @@ body{
 
 
 #logdiv {
-  padding: 10px;
-  width: 15%;
+  text-align: center;
+  width: 20%;
   display: table-cell;
   vertical-align: middle;
   color: azure;
 }
 
 #logdiv button {
-  margin-left:20%;
   background-color: transparent;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: 450;

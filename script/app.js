@@ -653,11 +653,11 @@ $('#remail').on('click' , function() {
 });
 
 
-$('.forgotlink').on('click' , function() {
-    $('.resetmdpdiv').show();
-    $("#formdiv").hide();
-    $('#mainback').addClass('mainbright3');
-});
+// $('.forgotlink').on('click' , function() {
+//     $('.resetmdpdiv').show();
+//     $("#formdiv").hide();
+//     $('#mainback').addClass('mainbright3');
+// });
 
 $('.nextbtn').prop('disabled' , true)
 
