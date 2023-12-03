@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="nahass">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="theme-color" content="#CFEBF3" />
+    <meta name="description" content="Anime Prodigy Master Quiz Application">
+
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css" rel="stylesheet">
+
+    <title>Anime Prodigy</title>
+</head>
+
+
+
+<body>
+    
+    
+    <div id = "app">
+
+
+       <div id = "headdiv">
+
+            <div id = "logodiv" @click="returnHome()">
+                <p id="logogo"> Anime Prodigy </p>
+                <!-- <img src="sword.png" alt = "sword pic"> -->
+            </div>
+
+            
+            <div id = "navdiv">
+
+                <a class="navelement storelink" href = "#">  BOUTIQUE  </a>
+
+                
+                <div class="navelement dropdown">
+                    <button id="dropbtnmode" data-bs-toggle="dropdown">
+                          Mode <img src ="fleche3.png" alt="modepic">
+                    </button>
+
+                    <ul class="dropdown-menu">
+                      <li class="linow" > <p class="currentmodetxt"> ︲Mainstream︲ </p> </li>
+
+                      
+                      <li title="Choisir le type de quiz" class="limode limode1" ><a class="dropdown-item" href="#"> Quiz type  </a> 
+                        <!-- <img class="toolpic" src="tool2.png" alt="toolpic"> -->
+                     </li>
+                     
+                      <li title="Tout type de questions" class="limode limode2"><a class="dropdown-item" href="#"> Overall </a> 
+                        <!-- <img class="toolpic" src="tool2.png" alt="toolpic"> -->
+                     </li>
+                    
+                      <li title="QCM séries mainstream" class="limode limode3"><a class="dropdown-item" href="#"> Mainstream </a> 
+                        <!-- <img class="toolpic" src="tool2.png" alt="toolpic" >  -->
+                    </li>
+
+                    </ul>
+                </div>
+               
+            </div>
+
+
+            <div id="logdiv">            
+                <button class="btn btn-secondary logbtn" data-effect="mfp-move-from-top"> 
+                    Login 
+                    <!-- <img id="logpic" src="saiki.png" alt="log pic" width="35" height="35"> -->
+                </button> 
+            </div>
+
+
+        </div>
+
+
+        
+
+
+
+        <div id="maindiv">
+
+            <img id="mainback" src="anime31.jpg" amt="backpic">
+
+          
+            <!-- forms part -->
+            <div id="formdiv">
+
+                <input type="radio" name="optionScreen" id="Login" hidden checked>
+                <input type="radio" name="optionScreen" id="SignUp" hidden>
+      
+                <section id="sectionform">
+      
+                  <nav class="lognav">
+                    <label for="Login" class="lab1">Log In</label>
+                    <label for="SignUp" class="lab2">Sign Up</label>
+                  </nav>
+                  
+                  <div v-show="showError" class="error_div">
+                    <span v-model="errorMsg" class="span_usersign"> {{errorMsg}} </span> &nbsp;
+                    <i class="fas fa-exclamation-circle icon_error1" style="color: #f00000;"></i>
+                  </div>
+      
+                  <!-- log form  -->
+                  <form @submit.prevent="logSubmit()" method="post" action="/login" class="form_origin" id="SignInFormData">
+      
+                    <input ref="logname_input" type="text" name="username" id="username_log" placeholder="Pseudo" >
+                    <input ref="logmdp_input" type="password" name="password" id="password_log" placeholder="Mot de Passe">
+                    
+                    <button type="submit" value="Connexion" class="formbtn formbtnlog" title="Se connecter"> Connexion </button>
+                    <a id="flinkid" class="forgotlink" title="Tu as oublié ton mot de passe ?">Mot de passe oublié ?</a>
+                    
+                  </form>
+      
+      
+                   <!-- sign form  -->
+                  <form @submit.prevent="signSubmit()" action='/register' method="post" class="form_origin" id="SignUpFormData">
+                    
+                    <input ref="name_input" type="text" name="sign_username" id="username_sign" placeholder="Pseudo" >
+                    <input ref="mail_input" type="email" name="mail" id=email placeholder="Mail">
+                    <input ref="mdp_input" type="password" name="sign_mdp" id="password_sign" placeholder="Mot de Passe" >
+      
+                    <button type="submit" class="formbtn formbtnsign" title="S'inscrire">S'inscrire</button>
+      
+                  </form>
+      
+
+                </section>
+
+
+                
+            </div>
+
+            <div class="typefinddiv">
+                
+            </div>
+
+            <div id="typediv">
+
+                <div id="portfolio">
+                    <ul class="portfolio-grid">
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="typecell">
+                                            
+                                        </div>
+                                    </li>
+                                </ul>
+                
+                </div>
+
+
+            </div>
+
+
+            <div id="resetdivid" class="resetmdpdiv">
+                
+                <form @submit.prevent="resetPassword()" class="resetform" action="java">
+                    <!-- <img class="forgetpic" src="megumi.png" alt="megpic"> -->
+                    <p> Demande de réinitialisation de mot de passe </p>
+                    <hr>
+                    <input v-model="mail_reset" type="email" name="rmail" id="remail" placeholder="Ton Mail.."> 
+                    <button> <img class="sendresetpic" src="send.png" height="30" width="30" alt="sendpic"> </button>
+                    <img class="succresetpic" src="succ.png" alt="succpic">
+                    <img class="reseterrorpic" src="errer.png" alt="errpic">
+                </form>
+
+            </div>
+
+        
+            <div id="succsignboxid" class="bloggerspice bssuccess bstext" icon="check-circle" title="Success message">
+                <i class="fa bloggerspice-icon fa-check-circle"></i> &nbsp; Ton compte a bien été créé !
+            </div>
+
+    
+        </div> <!-- end main div-->
+        
+        <div id="footdiv">
+            <footer>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4 col-md-3 item">
+                            <h3>A propos</h3>
+                            <ul>
+                                <li><a class="yetclass" href="/mention">Mentions Légales</a></li>
+                                <li><a class="notyetclass" href="#">Equipe</a></li>
+                                <li><a class="notyetclass" href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-md-3 item">
+                            <h3>Services</h3>
+                            <ul>
+                                <li><a class="notyetclass" href="#">Boutique</a></li>
+                                <!-- <li><a class="notyetclass" href="#">Mon compte</a></li> -->
+                                <li><a class="yetclass" href="#">Anime Prodigy</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 item social">
+                            <a class="twitter_l social" href="https://twitter.com/naahas_" target="_blank"> <i class="fab fa-twitter"></i> </a>
+                            <a class="ytb_l social" href="https://www.youtube.com/channel/UC3T3wp3gyGAOJGca55sHuAQ" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a class="discord_l social" href="https://discord.gg/nkRCX6qNfE" target="_blank"><i class="fab fa-discord"></i></a>
+                            <a class="insta_l social" href="https://www.instagram.com/naahas__/" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <p class="copyright">Anime Prodigy © Nahass 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    
+
+
+    </div> <!-- end app div -->
+
+    
+
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="./app.js"></script>
+
+</body>
+
+</html>

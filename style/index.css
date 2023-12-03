@@ -29,10 +29,9 @@ body{
 
 
 #logodiv {
+    left:3%;
     top:2.2vh;
-    left:2.5vw;
-    padding: 2px;
-    position: relative;
+    position: absolute;
     display: inline-block;
     -webkit-mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
     mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
@@ -53,16 +52,17 @@ body{
 }
 
 #logodiv p {
+    display: inline;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 15px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     font-weight: 450;
     color:rgb(198, 239, 241);
     text-shadow: rgb(37, 225, 228) 1px 0 10px;         
 }
 
-@media screen and (orientation:landscape) and (max-width:950px) { 
+@media screen and (orientation:portrait) and (max-width:950px) { 
   #logodiv p  {
     font-size: 12px;
   }
@@ -70,88 +70,210 @@ body{
  
 
 
-#logodiv img {
-    width: 25px;
-    height: 25px;
-}
-
 @media (max-width:431px) {
 
   #logodiv {
-    left:5vw;
-    top:2vh;
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: 10px;
+    left:5.5vw;
+    top:2.3vh;
+    font-size: 13px;
   }
 
   #logodiv p {
-    font-size: 11px;
+    font-size: 10px;
   }
-  #logodiv img {
-    width: 20px;
-    height: 20px;
-    margin-left:10px;
-  }
+  
 }
 
 
 
 @media screen and (orientation:landscape) and (max-width:950px)  {
-  #logodiv img {
-    width: 20px;
-    height: 20px;
+  #logodiv p  {
+    font-size: 11px;
   }
 }
 
 
 #navdiv {
-    background-color: red;
-    height: 100%;
-    width: 68vw;
+   position: relative;
+   left:15%;
+   width: 70%;
+   height: 100%;
+}
+
+.navelement {
+  top:2.2vh;
 }
 
 
-#navdiv ul li {
-    display: inline-block;
-    padding-right: 5em;
+#navdiv a:hover {
+  color: rgb(120, 148, 153);
+
+ 
+}
+
+
+#dropbtnmode {
+  border: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 2.2vmin;
+  color: rgb(199, 231, 237);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: transparent;
+  width: 11vw;
+  margin-bottom: 1em;
+}
+
+#dropbtnmode:hover {
+  opacity: 0.7;
+}
+
+
+.typepic {
+  position: absolute;
+  right: 1.3vw;
+  margin: 3px;
+  width: 12px;
+  height: 12px;
+  transform: rotate(-90deg);
+  animation: moveType 0.2s ease-in-out ;
+}
+
+
+
+#dropbtnmode img {
+  width: 15px;
+  height: 15px;
+  margin-left:5px;
+}
+
+.dropdown {
+  left:60%;
+  width: 10vw;
+  justify-self: center;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  background-color: rgb(3, 17, 27);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  margin:0;
+  padding: 0;
+  
+}
+
+.dropdown-menu li {
+  text-transform: uppercase;
+  width: 100%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 2vmin;
+  text-align: center;
+  height: 8vh;
+  display: table;
+}
+
+.toolpic {
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  right: 0.5vw;
+  margin:0.7vh;
+}
+
+.limode3 {
+  background-color:rgb(165, 203, 237 , 0.3);
+  opacity: 0.5;
+}
+
+.selectedmodeclass {
+  background-color:rgb(165, 203, 237 , 0.3);
+  opacity: 0.5;
+}
+
+
+
+.linow {
+  opacity: 0.9;
+}
+
+
+.dropdown-menu li a , .dropdown-menu li p {
+  text-decoration: none;
+  color:aliceblue;
+  pointer-events: none;
+  vertical-align: middle;
+  display: table-cell;
+  letter-spacing: 1px;
+}
+
+.limode:hover {
+  background-color:rgb(165, 203, 237 , 0.3);
+  cursor:pointer;
+}
+
+.storelink {
+  position: absolute;
+  left:25%;
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 2.2vmin;
+  color: rgb(199, 231, 237);
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 2px;
+}
+
+
+.currentmodetxt {
+  letter-spacing: 5px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color:azure;
+  font-size: 1.8vmin;
+  text-shadow: rgb(173, 160, 111) 1px 0 10px;
+}
+
+
+
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+
+@media screen and (orientation:landscape) and (max-width:950px)  {
+
+  .dropdown {
+    left:70%;
+  }
+
+  #dropbtnmode {
     
-}
-
-#navdiv ul li a {
-    font-family:Georgia, 'Times New Roman', Times, serif;
-    text-transform: uppercase;
-    text-decoration: none;
-    color:aliceblue;
-    font-size: 16px;
-}
+  }
 
 
-#dropbtn {
-    background-color: transparent;
-    border: none;
-    color:aliceblue;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-family:Georgia, 'Times New Roman', Times, serif;
-    border-radius: 20px;
-    
-}
 
-#dropbtn:hover {
-    background-color: #25326433;
-    color: rgb(170, 150, 184);
+  #dropbtnmode img {
+    width: 10px;
+    height: 10px;
+  }
+
+
+  .storelink {
+    top:4vh;
+  }
+
 
 }
 
-#storelink:hover {
-    background-color: #25326433;
-    color: rgb(170, 150, 184);
-
-}
 
 #logdiv {
-  position: relative;
+  position: absolute;
   float:right;
   right: 7vw;
   top:2.2vh;
@@ -184,6 +306,12 @@ body{
     right: 8vw;
     top:2.2vh;
   }
+
+  #navdiv {
+    display: none;
+    left:25%;
+    width: 50%;
+  }
 }
 
 
@@ -200,7 +328,7 @@ body{
 
 @media (max-width:431px) {
   #logdiv button {
-    font-size: 11px;   
+    font-size: 10px;   
   }
 }
 
@@ -751,7 +879,7 @@ input[type="checkbox"] {
 }
 
 #afterlogdiv {
-  position: relative;
+  position: absolute;
   float:right;
   top:2.4vh;
   right:7vw;
@@ -792,7 +920,32 @@ input[type="checkbox"] {
   #userdata {
     font-size: 15px;
   }
+
+  #afterlogdiv img {
+    width: 15px;
+    height: 15px;
+  }
 }
+
+
+@media screen and (orientation:landscape) and (max-width:950px)  { 
+
+  #userdata {
+    display: inline;
+    font-size: 14px;
+  }
+  
+  #afterlogdiv {
+    top:3.5vh;
+  }
+
+  #afterlogdiv img {
+    width: 15px;
+    height: 15px;
+  }
+
+}
+
 
 #profildiv {
   display: none;
@@ -2100,13 +2253,6 @@ input[type="checkbox"] {
   height: 15em;
 }
 
-@media (max-width:431px) { 
-
-  .rulediv {
-    width: 90vw;
-  }
-
-}
 
 .shinpic_animation1 {
   animation: animrule 0.7s ease-in-out;
@@ -2634,6 +2780,7 @@ input[type="checkbox"] {
 
 
 @media (max-width:431px) { 
+
   .bloc {
     visibility: hidden;
   }
@@ -2668,6 +2815,34 @@ input[type="checkbox"] {
     bottom: 0;
     right: 0;
   }
+}
+
+@media screen and (orientation:landscape) and (max-width:950px) { 
+    .bloc {
+      right:1.5em;
+      bottom: 1.2em;
+    }
+
+    .infobulle{
+      width: 4.5em;
+      top: -30px;
+      left: -5px;
+    }
+    
+    .bloc:hover .infobulle{
+      top: -50px;
+      left:-5px;
+    }
+    
+    
+    .infobulle span {
+      font-size: 12px;
+    }
+
+    .shinpic2 {
+      width: 3.5em;
+      height: 5em;
+    }
 }
 
 
@@ -2849,7 +3024,7 @@ input[type="checkbox"] {
   font-size: 2.5vmin;
   /* text-transform: uppercase; */
   color:aliceblue;
-  text-shadow: rgb(96, 85, 41) 1px 0 10px;;
+  text-shadow: rgb(96, 85, 41) 1px 0 10px;
 }
 
 
@@ -3107,3 +3282,232 @@ input[type="checkbox"] {
     display: none;
   }
 }
+
+
+
+
+@media (max-width:431px) { 
+
+  .rulediv {
+    width: 90vw;
+    height: 30vh;
+  }
+
+  .shinpic {
+    width: 9em;
+    height: 13em;
+  }
+  
+  .progressbarwrap {
+    margin-top: 2em;
+    width: 60%;
+    margin-left: 20%;
+    height: 4vh;
+  }
+  
+  .progressbar {
+    width: 0;
+    height: 100%;
+    /* background:url('anime18.jpg'); */
+    background: rgb(50,45,45);
+    background: linear-gradient(90deg, rgba(50,45,45,1) 0%, rgba(97,191,191,1) 0%, rgb(88, 144, 144) 0%, rgba(56,190,190,1) 99%);
+    border-radius: 20px;
+    animation: loadinganimation 3s 1 forwards;
+  }
+
+
+  .loadinfotxt {
+    margin-top:2.5em;
+    font-size: 10px;
+  }
+
+}
+
+
+
+@media screen and (orientation:landscape) and (max-width:950px) { 
+  .rulediv {
+    width: 40vw;
+    height: 60vh;
+  }
+
+  .shinpic {
+    width: 7em;
+    height: 10em;
+  }
+  
+  .progressbarwrap {
+    margin-top: 2em;
+    width: 80%;
+    margin-left: 10%;
+    height: 8vh;
+  }
+
+
+  .loadinfotxt {
+    margin-top:2.5em;
+    font-size: 10px;
+  }
+  
+}
+
+.typefinddiv {
+  position: relative;
+  background-color: rgba(34, 202, 202, 0.7);
+  width: 100%;
+  height: 15vh;
+}
+
+#typediv {
+  padding: 5em;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(12, 13, 13 , 0.7);
+  overflow: auto;
+  overflow-wrap: break-word;
+}
+
+
+.typecell {
+  width: 100%;
+  height: 10em;
+	border: none;
+	outline: none;
+	display: block;
+	position: relative;
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    border:3px double aliceblue;
+}
+
+
+.portfolio-grid {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+}
+
+.portfolio-grid li {
+	display: inline-block;
+	margin: 5px 5px 5px 5px;
+	vertical-align: top;
+    width:212px;
+}
+
+.portfolio-grid li > a,
+.portfolio-grid li > a img {
+    width: 100%;
+	border: none;
+	outline: none;
+	display: block;
+	position: relative;
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+}
+
+.portfolio-grid li > a img:hover {
+    border-radius: 50%;
+    z-index: 9999;
+}
+
+
+/******************************************
+ Animate.CSS By Dan Eden
+******************************************/
+
+.animated{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;}
+@-webkit-keyframes flipInX {
+    0% {
+        -webkit-transform: perspective(400px) rotateX(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        -webkit-transform: perspective(400px) rotateX(-10deg);
+    }
+    
+    70% {
+        -webkit-transform: perspective(400px) rotateX(10deg);
+    }
+    
+    100% {
+        -webkit-transform: perspective(400px) rotateX(0deg);
+        opacity: 1;
+    }
+}
+@-moz-keyframes flipInX {
+    0% {
+        -moz-transform: perspective(400px) rotateX(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        -moz-transform: perspective(400px) rotateX(-10deg);
+    }
+    
+    70% {
+        -moz-transform: perspective(400px) rotateX(10deg);
+    }
+    
+    100% {
+        -moz-transform: perspective(400px) rotateX(0deg);
+        opacity: 1;
+    }
+}
+@-o-keyframes flipInX {
+    0% {
+        -o-transform: perspective(400px) rotateX(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        -o-transform: perspective(400px) rotateX(-10deg);
+    }
+    
+    70% {
+        -o-transform: perspective(400px) rotateX(10deg);
+    }
+    
+    100% {
+        -o-transform: perspective(400px) rotateX(0deg);
+        opacity: 1;
+    }
+}
+@keyframes flipInX {
+    0% {
+        transform: perspective(400px) rotateX(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        transform: perspective(400px) rotateX(-10deg);
+    }
+    
+    70% {
+        transform: perspective(400px) rotateX(10deg);
+    }
+    
+    100% {
+        transform: perspective(400px) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+.flipInX {
+	-webkit-backface-visibility: visible !important;
+	-webkit-animation-name: flipInX;
+	-moz-backface-visibility: visible !important;
+	-moz-animation-name: flipInX;
+	-o-backface-visibility: visible !important;
+	-o-animation-name: flipInX;
+	backface-visibility: visible !important;
+	animation-name: flipInX;
+}
+

@@ -509,6 +509,10 @@ var app = new Vue({
                 console.log(err);
             });   
 
+        },
+
+        goType: function() {
+            window.location.href = '/type';
         }
 
 
@@ -516,7 +520,6 @@ var app = new Vue({
 
     created:  function() {
 
-       
     },
 
    
@@ -547,6 +550,8 @@ var app = new Vue({
 
 
        socket.on('sessionEvent' , (uname) => {
+            this.logged_user = uname;
+            console.log(this.logged_user)
             editHome(uname);
        });
 
@@ -728,6 +733,9 @@ if(document.getElementById('generalpop')) {
 //         $('#logogo').text('Anime Prodigy');
 //     }
 // }
+
+
+
 
 
 document.addEventListener('click', function handleClickOutsideBox(event) {
@@ -1224,8 +1232,10 @@ function startTimer(uptimer , coanswer , playernbanswer , plife) {
                     }
 
 
+                    //no answer
                 } else {
-                    
+
+                    validateNoAnswer()
                     if(plife>0) $('.spananswermsg').html("AFK ?");
                     $('.infobulle').css('background-color' , "#e6e99e" );
 
@@ -1539,7 +1549,7 @@ function editReset(rdata) {
 function showLastResult(lastplayer) {
 
     $('#lastdiv').show();
-    document.getElementById('lasptxt').innerHTML = lastplayer + " IS THE WINNER";
+    document.getElementById('lasptxt').innerHTML = lastplayer + " EST LE VAINQUEUR !";
 
 }
 
@@ -1579,6 +1589,31 @@ function showFirstPlayer(name , time) {
 
 
     $('.fastdiv').fadeIn();
+    
+
+}
+
+
+
+function validateNoAnswer() {
+
+    var body = {
+        val:''
+    };
+
+    var config = {
+        method: 'post',
+        url: '/validateAnswer',
+        data: body
+    };
+
+    axios(config)
+    .then(function (res) {
+        // gameRedirect();
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
     
 
 }

@@ -24,6 +24,8 @@ const { time } = require('console');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
+
+
 //for bcryptjs
 const saltRounds = 10;
 
@@ -39,28 +41,28 @@ const io = new Server(server , {
 })
 
 
-// const db = new mysql.createConnection({
-//     host : 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'master_quiz',
+const db = new mysql2.createConnection({
+    host : 'localhost',
+    user: 'root',
+    password: '',
+    database: 'master_quiz',
 
-// });
+});
 
 
 
 /// database connection
-const db = new mysql.createConnection({
-    host : process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+// const db = new mysql.createConnection({
+//     host : process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME,
 
-    ssl: {
-        rejectUnauthorized: true,
-      },
+//     ssl: {
+//         rejectUnauthorized: true,
+//       },
     
-});
+// });
 
 
 
@@ -175,6 +177,7 @@ app.post('/play' , function(req,res) {
                 req.session.host = true;
                 req.session.firstLaunchEnd = 0;
                 req.session.life = 3;
+                req.session.mode = "mainstream";
                 req.session.ingame = true;
                 maptimeplayerleft.set(req.session.user , firstcounter);
                 mapprogress.set(req.session.user , false);
@@ -190,7 +193,7 @@ app.post('/play' , function(req,res) {
                 db.query(`insert into hostroom (host,roomid) values (?,?)`, [req.session.user , roomID]);
                 req.session.rid = roomID;
                 mapquestionb.set(req.session.rid , 1);
-                retrieveData("order" , req);               
+                retrieveData( req.session.mode , req);               
                 rooms.push(roomID);
                 current_hostusers.push(req.session.user);
                 mappassed.set(req.session.rid , "ip0");
@@ -228,6 +231,7 @@ app.post('/play' , function(req,res) {
 
                 if(rooms.includes(u_rid) && !current_hostusers.includes(req.session.user)) {
 
+                    req.session.mode = "mainstream";
                     req.session.ingame = true;
                     req.session.rid = u_rid;
                     req.session.life = 3;
@@ -280,7 +284,6 @@ app.post('/quiz' , function(req,res) {
 
 
 app.get('/quiz' , function(req,res) {
-
     //force remove life when player reload at last second and glitch
     if(req.session.hasToBeRemove == true) {
 
@@ -315,6 +318,7 @@ app.get('/quiz' , function(req,res) {
     
     //add life to player who had 0 lives when game is over when everyone else have 0 lives too 
     if(mapregainlife.has(req.session.user) == true) {
+        
        req.session.life+=1;
        mapregainlife.delete(req.session.user);
        mapprelife.set(req.session.user , 1);
@@ -396,6 +400,7 @@ app.post('/resetAnswerPlayer' , function(req,res) {
 
 
 app.post('/validateAnswer' , function(req,res) {
+    
     req.session.answer = req.body.val;
     req.session.answernb = req.body.valnb;
 
@@ -413,6 +418,7 @@ app.post('/validateAnswer' , function(req,res) {
         }
 
     } else {
+        console.log("jsuis mort")
         var myhost = mapassociate.get(req.session.user);
         var qdata = mapdataquiz.get(myhost);
         var c_answer = qdata[2];  
@@ -494,7 +500,7 @@ app.post('/passResult' , function(req,res) {
                 if(life == 1) mapregainlife.set(user , 'true');
             });
 
-            retrieveData("order" , req); 
+            retrieveData( req.session.mode , req); 
             mappassed.set(req.session.rid , "ip0");
             maptimeplayerleft.set(req.session.user , 11);
             mapprogress.set(req.session.user , false);
@@ -513,7 +519,7 @@ app.post('/passResult' , function(req,res) {
 
     } else {
 
-        retrieveData("order" , req); 
+        retrieveData( req.session.mode , req); 
         mappassed.set(req.session.rid , "ip0");
         maptimeplayerleft.set(req.session.user , 11);
         mapprogress.set(req.session.user , false);
@@ -582,8 +588,11 @@ app.get('/result' , function(req,res) {
 app.post('/lifeRemove' , function(req,res) {
 
     if(req.session.hasToBeRemove == true) {
-
-        if(req.session.life > 0) req.session.life--;
+        if(req.session.host!=true) console.log("juste avant denlever : " , req.session.life)
+        if(req.session.life > 0) {
+            req.session.life--;
+            if(req.session.host!=true) console.log("vie après enlevé : " , req.session.life)
+        }
         mappostlife.set(req.session.user , req.session.life);
         if(req.session.life <= 0) maproomplayer.delete(req.session.user);
         req.session.hasToBeRemove = false;
@@ -593,6 +602,11 @@ app.post('/lifeRemove' , function(req,res) {
     res.redirect('/quiz');
 
     res.end();
+});
+
+
+app.get('/type' , function(req,res) {
+    res.sendFile(__dirname + '/type.html');
 });
 
 
@@ -900,6 +914,10 @@ io.on('connection' , (socket) => {
                         if(timeleft > 0) maptimeplayerleft.set(iosession , timeleft-=1)
                     }, 1000);
 
+                    setTimeout(() => {
+                        console.log("jsuis mort")
+                    }, 16000);
+
 
                 } else {
                     if(socket.rooms.has(ioroomsession)) {
@@ -981,7 +999,7 @@ io.on('connection' , (socket) => {
                 
             } else {
                 
-            if(maptimeplayerleft.get(myhost) <= 0) socket.emit('updateFinalAnswer' , ioplayeranswernb , c_answer);
+                if(maptimeplayerleft.get(myhost) <= 0) socket.emit('updateFinalAnswer' , ioplayeranswernb , c_answer);
             
             }
 
@@ -1051,7 +1069,8 @@ function generateRoomID(code_length) {
 
 
 
-function generateQuestionAllOrder(req) {
+
+function generateQuestionMainstream(req) {
 
     var current_nbq = mapquestionb.get(req.session.rid);
     var cho_question;
@@ -1064,7 +1083,7 @@ function generateQuestionAllOrder(req) {
 
         return new Promise((resolve , reject) => {
             
-            db.query(`select * from data where difficulty = 'veryeasy' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+            db.query(`select * from data where difficulty = 'veryeasy' && used = false && manga in (select manga from mainstream_data) ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
                 if(err) {
                     reject(err);
@@ -1096,7 +1115,7 @@ function generateQuestionAllOrder(req) {
 
         return new Promise((resolve , reject) => {
             
-            db.query(`select * from data where difficulty = 'easy' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+            db.query(`select * from data where difficulty = 'easy' && used = false && manga in (select manga from mainstream_data) ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
                 if(err) {
                     reject(err);
@@ -1127,7 +1146,7 @@ function generateQuestionAllOrder(req) {
 
         return new Promise((resolve , reject) => {
             
-            db.query(`select * from data where difficulty = 'medium' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+            db.query(`select * from data where difficulty = 'medium' && used = false && manga in (select manga from mainstream_data) ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
                 if(err) {
                     reject(err);
@@ -1159,7 +1178,7 @@ function generateQuestionAllOrder(req) {
 
         return new Promise((resolve , reject) => {
             
-            db.query(`select * from data where difficulty = 'hard' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+            db.query(`select * from data where difficulty = 'hard' && used = false && manga in (select manga from mainstream_data) ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
                 if(err) {
                     reject(err);
@@ -1192,7 +1211,7 @@ function generateQuestionAllOrder(req) {
 
         return new Promise((resolve , reject) => {
             
-            db.query(`select * from data where difficulty = 'veryhard' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+            db.query(`select * from data where difficulty = 'veryhard' && used = false && manga in (select manga from mainstream_data) ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
                 if(err) {
                     reject(err);
@@ -1221,7 +1240,7 @@ function generateQuestionAllOrder(req) {
 
         return new Promise((resolve , reject) => {
             
-            db.query(`select * from data where difficulty = 'extreme' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+            db.query(`select * from data where difficulty = 'extreme' && used = false && manga in (select manga from mainstream_data) ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
 
                 if(err) {
                     reject(err);
@@ -1253,9 +1272,9 @@ function generateQuestionAllOrder(req) {
 
 
 
-async function asyncGenOverallOrder(req) {
+async function asyncGenerateMainstream(req) {
     try {
-        const resquery = await generateQuestionAllOrder(req);
+        const resquery = await generateQuestionMainstream(req);
         return resquery;
 
     } catch (error) {
@@ -1271,9 +1290,9 @@ async function asyncGenOverallOrder(req) {
 
 function retrieveData(val , req) {
 
-    if(val == 'order') {
+    if(val == 'mainstream') {
         
-        asyncGenOverallOrder(req).then((res) => {
+        asyncGenerateMainstream(req).then((res) => {
             
             mapdataquiz.set(req.session.user , res);
 
