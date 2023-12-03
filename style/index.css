@@ -6,6 +6,7 @@ body{
 
 
 #headdiv {
+  display: table;
     width: 100vw;
     height: 10vh;
     background-color: rgb(3, 17, 27);
@@ -29,16 +30,15 @@ body{
 
 
 #logodiv {
-    left:3%;
-    top:2.1vh;
-    position: absolute;
-    display: inline-block;
+    width: 25%;
+    display: table-cell;
     -webkit-mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
     mask-image: linear-gradient(45deg,#000 25%,rgba(0,0,0,.2) 50%,#000 75%);
     -webkit-mask-size: 800%;
     mask-size: 800%;
     -webkit-mask-position: 0;
     mask-position: 0;
+    vertical-align: middle;
 }
 
 
@@ -52,9 +52,10 @@ body{
 }
 
 #logodiv p {
-    display: inline;
+    margin-left:13%;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 2.1vmin;
+    display: inline-block;
+    font-size: 2.2vmin;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 450;
@@ -62,26 +63,24 @@ body{
     text-shadow: rgb(37, 225, 228) 1px 0 10px;         
 }
 
-@media screen and (orientation:portrait) and (max-width:950px) { 
+/* @media screen and (orientation:portrait) and (max-width:950px) { 
 
 
   #logodiv p  {
     font-size: 12px;
   }
 }
- 
+  */
 
 
 @media (max-width:431px) {
 
   #logodiv {
-    left:5.5vw;
-    top:2.3vh;
-    font-size: 13px;
+   
   }
 
   #logodiv p {
-    font-size: 10px;
+    margin-left:20%;
   }
   
 }
@@ -101,23 +100,23 @@ body{
 
 
 #navdiv {
-   position: relative;
-   left:15%;
-   width: 70%;
+   width: 60%;
+   text-align: center;
    height: 100%;
+   display: table-cell;
+   vertical-align: middle;
 }
 
 
 #logdiv {
-  position: absolute;
-  float:right;
-  right: 7vw;
-  top:2.2vh;
+  width: 15%;
+  
+  display: table-cell;
+  vertical-align: middle;
   color: azure;
 }
 
 #logdiv button {
-    padding: 2px;
     background-color: transparent;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 450;
@@ -144,7 +143,6 @@ body{
   }
 
   #navdiv {
-    display: none;
     left:25%;
     width: 50%;
   }
@@ -256,7 +254,6 @@ body{
   right: 2%;
   z-index: 5;
   font-family: Georgia, 'Times New Roman', Times, serif;
-
 }
 
 .resetmdpdiv {
@@ -472,6 +469,7 @@ section {
 }
 
 .lognav label {
+  font-size: 2.1vmin;
 	text-transform: uppercase;
 	cursor: pointer;
   margin-bottom: 10px;
@@ -511,25 +509,20 @@ section {
 input,
 .formbtn {
 	border-radius: 48px;
-	padding: 13px 17px;
+	padding: 2vmin 2.5vmin;
 	margin-bottom: 15px;
 	border: none;
 	outline: none;
-	font-size: 13px;
+	font-size: 1.5vmin;
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 @media (max-width:431px) {
   input,
   .formbtn {
-    border-radius: 48px;
-    padding: 13px 17px;
-    margin-bottom: 15px;
-    border: none;
-    outline: none;
-    font-size: 13px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
+
+  
 }
 
 .formbtn {
@@ -3347,3 +3340,174 @@ input[type="checkbox"] {
 	animation-name: flipInX;
 }
 
+
+
+/* new nav style */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+	font-family: 'Roboto', sans-serif;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+i {
+	margin-right: 10px;
+}
+/*----------bootstrap-navbar-css------------*/
+.navbar-logo{
+	padding: 15px;
+	color: #fff;
+}
+.navbar-mainbg{
+	background-color: #5161ce;
+	padding: 0px;
+}
+#navbarSupportedContent{
+	overflow: hidden;
+	position: relative;
+}
+#navbarSupportedContent ul{
+	padding: 0px;
+	margin: 0px;
+}
+#navbarSupportedContent ul li a i{
+	margin-right: 10px;
+}
+#navbarSupportedContent li {
+	list-style-type: none;
+	float: left;
+}
+#navbarSupportedContent ul li a{
+	color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 15px;
+    display: block;
+    padding: 20px 20px;
+    transition-duration:0.6s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+}
+#navbarSupportedContent>ul>li.active>a{
+	color: #5161ce;
+	background-color: transparent;
+	transition: all 0.7s;
+}
+#navbarSupportedContent a:not(:only-child):after {
+	content: "\f105";
+	position: absolute;
+	right: 20px;
+	top: 10px;
+	font-size: 14px;
+	font-family: "Font Awesome 5 Free";
+	display: inline-block;
+	padding-right: 3px;
+	vertical-align: middle;
+	font-weight: 900;
+	transition: 0.5s;
+}
+#navbarSupportedContent .active>a:not(:only-child):after {
+	transform: rotate(90deg);
+}
+.hori-selector{
+	display:inline-block;
+	position:absolute;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	transition-duration:0.6s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	background-color: #fff;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	margin-top: 10px;
+}
+.hori-selector .right,
+.hori-selector .left{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background-color: #fff;
+	bottom: 10px;
+}
+.hori-selector .right{
+	right: -25px;
+}
+.hori-selector .left{
+	left: -25px;
+}
+.hori-selector .right:before,
+.hori-selector .left:before{
+	content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #5161ce;
+}
+.hori-selector .right:before{
+	bottom: 0;
+    right: -25px;
+}
+.hori-selector .left:before{
+	bottom: 0;
+    left: -25px;
+}
+
+
+@media(min-width: 992px){
+	.navbar-expand-custom {
+	    -ms-flex-flow: row nowrap;
+	    flex-flow: row nowrap;
+	    -ms-flex-pack: start;
+	    justify-content: flex-start;
+	}
+	.navbar-expand-custom .navbar-nav {
+	    -ms-flex-direction: row;
+	    flex-direction: row;
+	}
+	.navbar-expand-custom .navbar-toggler {
+	    display: none;
+	}
+	.navbar-expand-custom .navbar-collapse {
+	    display: -ms-flexbox!important;
+	    display: flex!important;
+	    -ms-flex-preferred-size: auto;
+	    flex-basis: auto;
+	}
+}
+
+
+@media (max-width: 991px){
+	#navbarSupportedContent ul li a{
+		padding: 12px 30px;
+	}
+	.hori-selector{
+		margin-top: 0px;
+		margin-left: 10px;
+		border-radius: 0;
+		border-top-left-radius: 25px;
+		border-bottom-left-radius: 25px;
+	}
+	.hori-selector .left,
+	.hori-selector .right{
+		right: 10px;
+	}
+	.hori-selector .left{
+		top: -25px;
+		left: auto;
+	}
+	.hori-selector .right{
+		bottom: -25px;
+	}
+	.hori-selector .left:before{
+		left: -25px;
+		top: -25px;
+	}
+	.hori-selector .right:before{
+		bottom: -25px;
+		left: -25px;
+	}
+}
