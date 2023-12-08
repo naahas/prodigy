@@ -41,8 +41,22 @@
 
             <div id = "navdiv">
 
-              
-               
+                <div class="dropdown">
+
+                    <button class="dropbtn">MODES</button>
+
+                    <div class="dropdown-content">
+                        <ul>
+                            <li id="mod1"><a href="/type"> Quiz Type</a></li>
+                            <li id="mod2" @click=changeMode("overall")><a href="#"> Overall</a></li>
+                            <li @click=changeMode("mainstream") id="mod3" class="disablemode"><a href="#"> Mainstream</a></li>
+                        </ul>
+                        <!-- ▶ -->
+                    </div>
+
+                    
+                  </div>
+                
             </div>
 
 

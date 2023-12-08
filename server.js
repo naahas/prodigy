@@ -149,7 +149,6 @@ var mapspeedtime = new Map();
 
 //path handle
 app.get('/' , function(req,res) {
-    
     if(req.session.log) res.redirect('/home');
     else res.sendFile(__dirname + "/index.html");
 
@@ -177,7 +176,7 @@ app.post('/play' , function(req,res) {
                 req.session.host = true;
                 req.session.firstLaunchEnd = 0;
                 req.session.life = 3;
-                req.session.mode = "mainstream";
+                if(!req.session.mode) req.session.mode = "mainstream";
                 req.session.ingame = true;
                 maptimeplayerleft.set(req.session.user , firstcounter);
                 mapprogress.set(req.session.user , false);
@@ -231,7 +230,7 @@ app.post('/play' , function(req,res) {
 
                 if(rooms.includes(u_rid) && !current_hostusers.includes(req.session.user)) {
 
-                    req.session.mode = "mainstream";
+                    if(!req.session.mode) req.session.mode = "mainstream";
                     req.session.ingame = true;
                     req.session.rid = u_rid;
                     req.session.life = 3;
@@ -418,7 +417,6 @@ app.post('/validateAnswer' , function(req,res) {
         }
 
     } else {
-        console.log("jsuis mort")
         var myhost = mapassociate.get(req.session.user);
         var qdata = mapdataquiz.get(myhost);
         var c_answer = qdata[2];  
@@ -606,7 +604,11 @@ app.post('/lifeRemove' , function(req,res) {
 
 
 app.get('/type' , function(req,res) {
-    res.sendFile(__dirname + '/type.html');
+    if(req.session.user) {
+        res.sendFile(__dirname + '/type2.html');
+    } else {
+        res.sendFile(__dirname + '/type.html');
+    }
 });
 
 
@@ -618,6 +620,15 @@ app.get('/mention' , function(req,res) {
         res.sendFile(__dirname + '/mention1.html');
     }
 });
+
+
+app.post('/updateMode' , function(req,res) {
+    req.session.mode = req.body.val;
+    console.log("selected mode : " , req.session.mode)
+    res.redirect('/');
+});
+
+
 
 
 
@@ -822,7 +833,12 @@ io.on('connection' , (socket) => {
     const ioendgame = socket.request.session.endgame;
     const iofirstend = socket.request.session.firstLaunchEnd;
     const iowinnergame = socket.request.session.winnergame;
+    const iomode = socket.request.session.mode;
 
+    if(iomode) {
+        console.log(iomode)
+        socket.emit('displayMode' , iomode );
+    }
 
     //display log user data in client side
     if(iosession) {
@@ -914,9 +930,6 @@ io.on('connection' , (socket) => {
                         if(timeleft > 0) maptimeplayerleft.set(iosession , timeleft-=1)
                     }, 1000);
 
-                    setTimeout(() => {
-                        console.log("jsuis mort")
-                    }, 16000);
 
 
                 } else {
@@ -1272,6 +1285,423 @@ function generateQuestionMainstream(req) {
 
 
 
+function generateQuestionOverall(req) {
+
+    var current_nbq = mapquestionb.get(req.session.rid);
+    var cho_question;
+    var cho_answer = [];
+    var cho_correct;
+
+
+    //difficulty : very easy 
+    if(current_nbq <= 5) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'veryeasy' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Very easy"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    }
+
+
+    if(current_nbq > 5 && current_nbq <= 15) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'easy' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Easy"]);
+
+                }
+               
+            });
+
+        })
+    
+    }
+
+
+    if(current_nbq > 15 && current_nbq <= 27) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'medium' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Medium"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    }
+
+
+    if(current_nbq > 27 && current_nbq <= 35) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'hard' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Hard"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    }
+
+
+
+    if(current_nbq > 35 && current_nbq <= 45) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'veryhard' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);                    
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Very Hard"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    } else {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'extreme' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Extreme"]);
+
+                }
+               
+            });
+
+        })
+
+    }
+
+
+}
+
+
+function generateQuestionCustom(req) {
+
+    var current_nbq = mapquestionb.get(req.session.rid);
+    var s_manga = req.session.mode;
+    var cho_question;
+    var cho_answer = [];
+    var cho_correct;
+
+
+    //difficulty : very easy 
+    if(current_nbq <= 5) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'veryeasy' && used = false && manga = ? ORDER BY RAND() LIMIT 1` , s_manga ,  function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Very easy"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    }
+
+
+    if(current_nbq > 5 && current_nbq <= 15) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'easy' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Easy"]);
+
+                }
+               
+            });
+
+        })
+    
+    }
+
+
+    if(current_nbq > 15 && current_nbq <= 27) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'medium' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Medium"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    }
+
+
+    if(current_nbq > 27 && current_nbq <= 35) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'hard' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Hard"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    }
+
+
+
+    if(current_nbq > 35 && current_nbq <= 45) {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'veryhard' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);                    
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Very Hard"]);
+
+                }
+               
+            });
+
+        })
+    
+    
+    } else {
+
+        return new Promise((resolve , reject) => {
+            
+            db.query(`select * from data where difficulty = 'extreme' && used = false ORDER BY RAND() LIMIT 1` , function(err,result,fields) {
+
+                if(err) {
+                    reject(err);
+                } else {
+        
+                    cho_question = result[0].question;
+                    cho_answer.push(result[0].answerd1)
+                    cho_answer.push(result[0].answerd2)
+                    cho_answer.push(result[0].answerd3)
+                    cho_answer.push(result[0].answerd4)
+                    cho_correct = result[0].answerdx;
+
+                    mapcollectquestion.set(cho_question , req.session.rid);
+                    db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
+
+                    resolve([cho_question , cho_answer , cho_correct , "Extreme"]);
+
+                }
+               
+            });
+
+        })
+
+    }
+
+
+}
+
+
+//ASYNC FUNCTION
+
+async function asyncGenerateOverall(req) {
+    try {
+        const resquery = await generateQuestionOverall(req);
+        return resquery;
+
+    } catch (error) {
+        console.log("async query error" , error);
+
+    } finally {
+        // db.end();
+    }
+}
+
+
 async function asyncGenerateMainstream(req) {
     try {
         const resquery = await generateQuestionMainstream(req);
@@ -1286,6 +1716,19 @@ async function asyncGenerateMainstream(req) {
 }
 
 
+async function asyncGenerateCustomManga(req) {
+    try {
+        const resquery = await generateQuestionCustom(req);
+        return resquery;
+
+    } catch (error) {
+        console.log("async query error" , error);
+
+    } finally {
+        // db.end();
+    }
+}
+
 
 
 function retrieveData(val , req) {
@@ -1299,7 +1742,31 @@ function retrieveData(val , req) {
           }).catch((error) => {
              return error;
           });
-        }
+
+    } else if(val == 'overall') {
+        
+        asyncGenerateOverall(req).then((res) => {
+            
+            mapdataquiz.set(req.session.user , res);
+
+          }).catch((error) => {
+             return error;
+          });
+
+    } else {
+
+        asyncGenerateCustomManga(req).then((res) => {
+            
+            mapdataquiz.set(req.session.user , res);
+
+          }).catch((error) => {
+             return error;
+          });
+
+
+    }  
+
+    
         
 }
 

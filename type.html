@@ -41,7 +41,22 @@
             
             <div id = "navdiv">
 
-               
+                <div class="dropdown">
+
+                    <button class="dropbtn">MODES</button>
+
+                    <div class="dropdown-content">
+                        <ul>
+                            <li id="mod1"><a href="/type"> Quiz Type</a></li>
+                            <li id="mod2" @click=changeMode("overall")><a href="#"> Overall</a></li>
+                            <li @click=changeMode("mainstream") id="mod3" class="disablemode"><a href="#"> Mainstream</a></li>
+                        </ul>
+                        <!-- ▶ -->
+                    </div>
+
+                    
+                  </div>
+                
             </div>
 
 
@@ -53,6 +68,7 @@
             </div>
 
 
+
         </div>
 
 
@@ -62,7 +78,7 @@
 
         <div id="maindiv">
 
-            <img id="mainback" src="anime31.jpg" amt="backpic">
+            <img id="mainback" src="anime18.jpg" amt="backpic">
 
           
             <!-- forms part -->
@@ -86,7 +102,7 @@
                   <!-- log form  -->
                   <form @submit.prevent="logSubmit()" method="post" action="/login" class="form_origin" id="SignInFormData">
       
-                    <input ref="logname_input" type="text" name="username" id="username_log" placeholder="Pseudo" >
+                    <input ref="logname_input" type="text" name="username" id="username_log" placeholder="Pseudo" autocomplete="off">
                     <input ref="logmdp_input" type="password" name="password" id="password_log" placeholder="Mot de Passe">
                     
                     <button type="submit" value="Connexion" class="formbtn formbtnlog" title="Se connecter"> Connexion </button>
@@ -98,8 +114,8 @@
                    <!-- sign form  -->
                   <form @submit.prevent="signSubmit()" action='/register' method="post" class="form_origin" id="SignUpFormData">
                     
-                    <input ref="name_input" type="text" name="sign_username" id="username_sign" placeholder="Pseudo" >
-                    <input ref="mail_input" type="email" name="mail" id=email placeholder="Mail">
+                    <input ref="name_input" type="text" name="sign_username" id="username_sign" placeholder="Pseudo" autocomplete="off">
+                    <input ref="mail_input" type="email" name="mail" id=email placeholder="Mail" autocomplete="off">
                     <input ref="mdp_input" type="password" name="sign_mdp" id="password_sign" placeholder="Mot de Passe" >
       
                     <button type="submit" class="formbtn formbtnsign" title="S'inscrire">S'inscrire</button>
@@ -115,225 +131,213 @@
 
             <div class="typefinddiv">
 
+
+                <div class="searchtypediv">
+                    <div class="search-container">
+                      <input type="text" id="mansearch" v-model="typeVALUE" placeholder="Manga ou quiz spécifique..">
+                    </div>
+                </div>
+                
+                <button @click = "resetMangaDisplay()" title="Tout afficher" class="defbtn"> ▼  &nbsp; Tout </button>
+
+                <div class="subformtypediv"> 
+                    <form class="subformtype" @submit.prevent = changeMode("specific") >
+                        <button class="subtypebtn subformtypedisable"> VALIDER </button>
+                        <span class="typeselectedtxt"> </span>
+                    </form>
+                </div>
+
+                <hr class="typehr">
             </div>
+
+            
+
+            <div id="filterdiv">
+
+                <div class="genrediv">
+
+                    <div class="filtercontainer">
+                        
+                        <h3> Genre / Type </h3>
+	
+                        <ul>
+                            <li>
+                            <input type="radio" class="opop" id="op1" name="selector">
+                            <label for="op1">Mainstream</label>
+                            
+                            <div class="check"></div>
+                            </li>
+                            
+                            <li>
+                            <input type="radio" class="opop" id="op2" name="selector">
+                            <label for="op2">Romance</label>
+                            
+                            <div class="check"><div class="inside"></div></div>
+                            </li>
+                            
+                            <li>
+                            <input type="radio" class="opop" id="op3" name="selector">
+                            <label for="op3">Sport</label>
+                            
+                            <div class="check"><div class="inside"></div></div>
+                            </li>
+
+
+                            <li>
+                            <input type="radio" class="opop" id="op5" name="selector">
+                            <label for="op5">Autres</label>
+                            
+                            <div class="check"><div class="inside"></div></div>
+                            </li>
+
+                            
+
+                      </ul>
+
+
+                    </div>
+                      
+
+
+                </div>
+
+            
+
+            </div>
+            
 
             <div id="typediv">
 
-                <div id="portfolio">
-                    <ul class="portfolio-grid">
-                                    <li>
-                                        <div class="typecell">
-                                            
+                    <div id="wrap-cell" class="portfolio-grid">
+                                
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Naruto</span>
+                                            <img src="narutocell2.jpg" alt="cellpic">
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
+                                  
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Shingeki No Kyojin</span>
+                                            <img src="snkcell2.jpg" alt="cellpic">
                                         </div>
-                                    </li>
+                                    
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Dragon Ball</span>
+                                            <img src="dbcell2.jpg" alt="cellpic">
+                                        </div>
+                             
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">One Piece</span>
+                                            <img src="onepiececell2.jpg" alt="cellpic">
+                                        </div>
+                             
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type" >Jujutsu Kaisen</span>
+                                            <img src="jjkcell4.jpg" alt="cellpic">
+                                        </div>
+                               
+                                        <div class="typecell">
+                                            <span class="m_type">Jojo's Bizarre Adventure</span>
+                                            <img src="jojocell.jpg" alt="cellpic">
+                                        </div>
+                              
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">My Hero Academia</span>
+                                            <img src="mhacell3.jpg" alt="cellpic">
+                                        </div>
+                             
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Hunter x Hunter</span>
+                                            <img src="hxhcell.jpg" alt="cellpic">
+                                        </div>
+                             
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Demon Slayer</span>
+                                            <img src="slayercell.jpg" alt="cellpic">
+                                        </div>
+                             
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Bleach</span>
+                                            <img src="bleachcell2.jpg" alt="cellpic">
+                                        </div>
+                              
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Fairy Tail</span>
+                                            <img src="fairytailcell4.jpg" alt="cellpic">
+                                        </div>
+                             
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Death Note</span>
+                                            <img src="deathnotecell5.jpg" alt="cellpic">
+                                        </div>
+                              
+                                        <div class="typecell">
+                                            <span class="m_type">Gintama</span>
+                                            <img src="gintamacell4.jpg" alt="cellpic">
+                                        </div>
+                               
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">One Punch Man</span>
+                                            <img src="onepunchmancell.png" alt="cellpic">
+                                        </div>
+                                 
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Sword Art Online</span>
+                                            <img src="saocell2.jpg" alt="cellpic">
+                                        </div>
 
-                                    <li>
                                         <div class="typecell">
-                                            
+                                            <span class="m_type">Yu Yu Hakusho</span>
+                                            <img src="yuyuhakushocell2.jpg" alt="cellpic">
                                         </div>
-                                    </li>
+                                  
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Fullmetal Alchemist</span>
+                                            <img src="fmabcell7.jpg" alt="cellpic">
+                                        </div>
+                                  
+                                        <div class="typecell" name="sport">
+                                            <span class="m_type">Kuroko no Basket</span>
+                                            <img src="knbcell2.jpg" alt="cellpic">
+                                        </div>
 
-                                    <li>
                                         <div class="typecell">
-                                            
+                                            <span class="m_type">Fate</span>
+                                            <img src="fatecell.jpg" alt="cellpic">
                                         </div>
-                                    </li>
 
-                                    <li>
                                         <div class="typecell">
-                                            
+                                            <span class="m_type">YuGiOh</span>
+                                            <img src="yugiohcell6.jpg" alt="cellpic">
                                         </div>
-                                    </li>
+                                 
+                                        <div class="typecell" name="mainstream">
+                                            <span class="m_type">Pokemon</span>
+                                            <img src="pokemoncell.jpeg" alt="cellpic">
+                                        </div>
+                                  
+                                        <div class="typecell">
+                                            <span class="m_type">Nanatsu no Taizai</span>
+                                            <img src="sdscell.jpg" alt="cellpic">
+                                        </div>
+                               
+                                        <div class="typecell" name="sport">
+                                            <span class="m_type">Haikyuu</span>
+                                            <img src="haikyuucell3.jpg" alt="cellpic">
+                                        </div>
+                                   
+                                        <div class="typecell" name="autre">
+                                            <span class="m_type">OPENINGS</span>
+                                            <img src="openingcell.jpg" alt="cellpic">
+                                        </div>
+                                   
+                                        <div class="typecell" name="autre">
+                                            <span class="m_type">VOICE</span>
+                                            <img src="seiyuucell.jpg" alt="cellpic">   
+                                        </div>
 
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="typecell">
-                                            
-                                        </div>
-                                    </li>
-                                </ul>
-                
-                </div>
+                                        
+                               
+                        </div>
 
 
             </div>

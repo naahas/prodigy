@@ -45,11 +45,16 @@
                     <button class="dropbtn">MODES</button>
 
                     <div class="dropdown-content">
-                      <a href="#"> ︲Mainstream︲ </a>
-                      <a href="/type">Quiz Type</a>
-                      <a href="#">Overall</a>
-                      <a href="#">Mainstream</a>
+                        <ul>
+                            <li id="mod1"><a href="/type"> Quiz Type</a></li>
+                            <li id="mod2" @click=changeMode("overall")><a href="#"> Overall</a></li>
+                            <li @click=changeMode("mainstream") id="mod3" class="disablemode"><a href="#"> Mainstream</a></li>
+
+                        </ul>
+                        <!-- ▶ -->
                     </div>
+
+                    
                   </div>
                 
             </div>

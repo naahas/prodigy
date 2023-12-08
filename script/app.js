@@ -13,6 +13,7 @@ var app = new Vue({
     data: function() {
         return {
             testo: "kakarot",
+            typeVALUE: '',
             date: Date.now(),
             logged_user: '',
             log_username: '',
@@ -47,6 +48,7 @@ var app = new Vue({
             c_question: '',
             c_timer: '',
             playerlife: '',
+            current_type: ''
         }
     },
 
@@ -513,18 +515,70 @@ var app = new Vue({
 
         goType: function() {
             window.location.href = '/type';
+        },
+
+
+        showLogArea: function() {
+            
+            return true;
+        },
+
+        showAfterLogArea: function() {
+            
+
+            return false;
+        },
+
+        resetMangaDisplay: function() {
+            $('#mansearch').val('');
+            $('.typecell').show();
+            $('.opop').prop('checked', false);
+             
+        },
+
+        changeMode: function(mode) {
+
+            console.log("wsh what")
+
+            if(mode == "specific") mode = this.current_type; //if client select quiz specific type
+
+            var body = {
+                val: mode
+            };
+
+            var config = {
+                method: 'post',
+                url: '/updateMode',
+                data: body
+            };
+
+            axios(config)
+            .then(function (res) {
+               
+            })
+            .catch(function (err) {
+                console.log(err);
+            });   
+
+            window.location.href = '/';
         }
 
+        
 
     },
 
     created:  function() {
-
+        socket.on('sessionEvent' , (uname) => {
+            this.logged_user = uname;
+            console.log(this.logged_user)
+            editHome(uname);
+       });
     },
 
    
     mounted: async function() {
-
+        
+        
 
         socket.on('startTimerEvent' , (s_time , coanswer , playerfinalnb , plife) => {
             this.c_timer = s_time;
@@ -548,12 +602,6 @@ var app = new Vue({
             updateEndPlayerData();
        });
 
-
-       socket.on('sessionEvent' , (uname) => {
-            this.logged_user = uname;
-            console.log(this.logged_user)
-            editHome(uname);
-       });
 
        socket.on('displayRoomDataEvent' , (gamehost , gameusers , gameroom , roomDone) => {
             this.players = gameusers;
@@ -635,13 +683,159 @@ var app = new Vue({
        });
 
 
+       socket.on('displayMode' , (mode) => {
+            document.getElementById('mod1').classList.remove('disablemode');
+            document.getElementById('mod2').classList.remove('disablemode');
+            document.getElementById('mod3').classList.remove('disablemode');
+
+            if(mode == 'mainstream') {
+                document.getElementById('mod3').classList.add('disablemode');
+            
+            } else if(mode == 'overall') {
+                document.getElementById('mod2').classList.add('disablemode');
+            } else {
+                document.getElementById('mod1').classList.add('disablemode2');
+            }
+            
+       });
+
+
     },
 
 })
 
 
 
+
+
 //JQUERY AND JS SECTION
+
+
+
+//check input change
+var tmp_m = document.getElementsByClassName('m_type');
+var list_m = Array.prototype.slice.call(tmp_m);
+
+
+$('#mansearch').on('input',function(e){
+
+    $('.opop').prop('checked', false);
+    
+    var mangas = ['Naruto' , 'Fate' , 'Yu Yu Hakusho' , 'YuGiOh' , 'Dragon Ball' , 'One Piece' , 'Fairy Tail' , 'Hunter x Hunter' , 'Shingeki No Kyojin',
+                'Jujutsu Kaisen' , "Jojo's Bizarre Adventure" , "My Hero Academia" , "Death Note" , "One Punch Man",
+                "Demon Slayer" , "Bleach" , "Gintama" , "Fullmetal Alchemist" , "Sword Art Online" , "Pokemon" , "Kuroko no Basket" , "Nanatsu no Taizai",
+                "Haikyuu" , "Code Geass" , "Openings" , "Voice"];
+
+    var neo_mangas = mangas.map(manga => manga.toLowerCase());
+
+    var ctype = $(this).val().toLowerCase()
+
+
+    if(ctype!=" ") {
+
+        //mangas who match the input
+        var type_res = neo_mangas.filter(subtype => subtype.includes(ctype))
+
+        //if mangas array contains a substring from ctype (input value)
+        if(type_res.length > 0) {
+            
+            type_res.forEach(el => {
+                // console.log("input res -> " , el)
+            });
+
+            //mangas who don't match the input
+           var to_hide = neo_mangas.filter(el => type_res.includes(el) == false)
+
+
+            var wcell = document.getElementById("wrap-cell");
+            var divcell = wcell.getElementsByTagName("div");
+
+            for (var i = 0; i < divcell.length; ++i) {
+                if(to_hide.includes(divcell[i].children.item(0).innerHTML.toLowerCase()) == true) divcell[i].style.display = "none";
+                else divcell[i].style.display = "unset";
+            }
+            
+
+        }
+    } 
+    
+});
+
+
+
+$('.typecell').on('click' , function() {
+    var tselect = $(this).children()[0].innerHTML;
+    app.current_type = tselect;
+
+    $(".typecell").removeClass('selectedTypeClass');
+    $(this).addClass('selectedTypeClass');
+    $('.typeselectedtxt').html("&nbsp; &nbsp; ᐅ &nbsp; " + tselect + " &nbsp; ᐊ")
+
+    
+    $('.subtypebtn').removeClass('subformtypedisable');
+})
+
+
+//mainstream
+$("#op1").change(function() {
+
+    $('#mansearch').val('');
+    var wcell = document.getElementById("wrap-cell");
+    var divcell = wcell.getElementsByTagName("div");
+    
+    if($(this).is(':checked') ){
+        for (var i = 0; i < divcell.length; ++i) {
+            if(divcell[i].getAttribute('name') != 'mainstream') divcell[i].style.display = "none";
+            else divcell[i].style.display = "unset";
+        }  
+    }
+});
+
+
+//sport
+$("#op3").change(function() {
+
+    $('#mansearch').val('');
+    var wcell = document.getElementById("wrap-cell");
+    var divcell = wcell.getElementsByTagName("div");
+    
+    if($(this).is(':checked') ){
+        for (var i = 0; i < divcell.length; ++i) {
+            if(divcell[i].getAttribute('name') != 'sport') divcell[i].style.display = "none";
+            else divcell[i].style.display = "unset";
+        }  
+    }
+});
+
+
+//autre
+$("#op5").change(function() {
+
+    $('#mansearch').val('');
+    var wcell = document.getElementById("wrap-cell");
+    var divcell = wcell.getElementsByTagName("div");
+    
+    if($(this).is(':checked') ){
+        for (var i = 0; i < divcell.length; ++i) {
+            if(divcell[i].getAttribute('name') != 'autre') divcell[i].style.display = "none";
+            else divcell[i].style.display = "unset";
+        }  
+    }
+});
+
+
+$('.typecell').on('mouseenter' , function() {
+    $(this).css("transform" , "scale(1.12)");
+    $(this).find('img').css("filter" , "brightness(50%)")
+    $(this).find('span').show();
+});
+
+$('.typecell').on('mouseleave' , function() {
+    $(this).css("transform" , "scale(1)");
+    $(this).find('img').css("filter" , "brightness(100%)")
+    $(this).find('span').hide();
+});
+
 
 $('.bssuccess').on('click' , function() {
     $(this).hide();
