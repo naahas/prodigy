@@ -1855,8 +1855,6 @@ function associate_ph(username , urid) {
 }
 
 
-
-
 function update_backup_data() {
 
     db.query(`select * from data` , function (err,result,fields) {

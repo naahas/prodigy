@@ -570,7 +570,7 @@ var app = new Vue({
     created:  function() {
         socket.on('sessionEvent' , (uname) => {
             this.logged_user = uname;
-            console.log(this.logged_user)
+            // console.log(this.logged_user)
             editHome(uname);
        });
     },
