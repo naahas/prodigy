@@ -32,37 +32,52 @@
 
        <div id = "headdiv">
 
-            <div id = "logodiv" @click="redirectMain()">
-                <span> Anime Prodigy </span>
-                <img src="sword.png" alt = "sword pic">
+            <div id = "logodiv" @click="returnHome()">
+                <p id="logogo"> Anime Prodigy </p>
+                <!-- <img src="sword.png" alt = "sword pic"> -->
             </div>
 
             <div id = "navdiv">
-                <nav class="nav justify-content-center">
-                    <ul>
-                        <li>
-                            <div class="btn-group">
-                                <button type="button" id="dropbtn" class="btn btn-dark  " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ︲ Modes ︲
-                                </button>
-                                <div class="dropdown-menu">
-                                  <button class="btn dropdown-item" type="button">Perso1</button>
-                                  <button class="btn dropdown-item" type="button">Perso2</button>
-                                  <button class="btn dropdown-item" type="button">Perso3</button>
-                                </div>
-                              </div>          
-                        </li>
-                        <li>
-                            <a id="storelink" href = "#" > ︲ Boutique ︲ </a>
-                        </li>
-                    </ul>
-                </nav>
+
+                <div class="dropdown typedropdown">
+
+                    <button class="dropbtn">MODES</button>
+
+                    <div class="dropdown-content typedropdown-content">
+                        <ul>
+                            <li id="mod1"><a href="/type"> Quiz Type</a></li>
+                            <li id="mod2" @click=changeMode("overall")><a href="#"> Overall</a></li>
+                            <li @click=changeMode("mainstream") id="mod3" class="disablemode"><a href="#"> Mainstream</a></li>
+
+                        </ul>
+                        <!-- ▶ -->
+                    </div>
+
+                    
+                  </div>
+                
             </div>
 
 
             <div id="afterlogdiv">
-                <p id="userdata">  </p>
-                <img src="fleche2.png" alter="userpic" width="20" height="20">
+
+
+                <div class="afterwrap dropdown profildoprodwn">
+                    <p id="userdata">  </p>
+                    <img src="fleche2.png" alter="userpic" width="18" height="18">
+
+                    <div class="dropdown-content profildoprodwn-content">
+                        <ul>
+                            <li @click="goToProfil()"><a href="#"> <i class="fa fa-user-circle" style="color:#aaffe6"></i> &nbsp; Profil</a></li>
+                            <li><a href="#"> <i class="fa fa-users" style="color:#aaffe6;"></i> &nbsp; Amis</a></li>
+                            <li><a href="#"> <i class="fa fa-cog" style="color:#aaffe6;"></i> &nbsp; Paramètre</a></li>
+                            <li @click="logOut()"><a href="#"> <i class="fas fa-sign-out-alt" style="color:#aaffe6;"></i> &nbsp; Deconnexion</a></li>
+                        </ul>
+                        <!-- ▶ -->
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
@@ -137,7 +152,7 @@
 
                             <li>
                                 <label class="label1" for="promail">E-Mail : </label>
-                                <input disabled ref="pmail_input"  class="place2" type="email" name="promail" placeholder="storm@gmail.com">
+                                <input disabled ref="pmail_input"  class="place2" type="email" name="promail" placeholder="azerty@gmail.com">
                                 <img title="Modifier le mail" src="edit2.png" class="modifyimg act2" alt="editpic" width="40" height="40">
                             </li>
 
@@ -227,7 +242,7 @@
                         <div class="col-sm-4 col-md-3 item">
                             <h3>A propos</h3>
                             <ul>
-                                <li><a class="notyetclass" href="#">Mentions Légales</a></li>
+                                <li><a class="yetclass" href="/mention">Mentions Légales</a></li>
                                 <li><a class="notyetclass" href="#">Equipe</a></li>
                                 <li><a class="notyetclass" href="#">Contact</a></li>
                             </ul>

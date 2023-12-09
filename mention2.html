@@ -41,11 +41,11 @@
 
             <div id = "navdiv">
 
-                <div class="dropdown">
+                <div class="dropdown typedropdown">
 
                     <button class="dropbtn">MODES</button>
 
-                    <div class="dropdown-content">
+                    <div class="dropdown-content typedropdown-content">
                         <ul>
                             <li id="mod1"><a href="/type"> Quiz Type</a></li>
                             <li id="mod2" @click=changeMode("overall")><a href="#"> Overall</a></li>
@@ -61,8 +61,24 @@
 
 
             <div id="afterlogdiv">
-                <p id="userdata">  </p>
-                <img src="fleche2.png" alter="userpic" width="20" height="20">
+
+
+                <div class="afterwrap dropdown profildoprodwn">
+                    <p id="userdata">  </p>
+                    <img src="fleche2.png" alter="userpic" width="18" height="18">
+
+                    <div class="dropdown-content profildoprodwn-content">
+                        <ul>
+                            <li @click="goToProfil()"><a href="#"> <i class="fa fa-user-circle" style="color:#aaffe6"></i> &nbsp; Profil</a></li>
+                            <li><a href="#"> <i class="fa fa-users" style="color:#aaffe6;"></i> &nbsp; Amis</a></li>
+                            <li><a href="#"> <i class="fa fa-cog" style="color:#aaffe6;"></i> &nbsp; Paramètre</a></li>
+                            <li @click="logOut()"><a href="#"> <i class="fas fa-sign-out-alt" style="color:#aaffe6;"></i> &nbsp; Deconnexion</a></li>
+                        </ul>
+                        <!-- ▶ -->
+                    </div>
+
+                </div>
+
             </div>
 
 
@@ -73,31 +89,7 @@
 
             <img id="mainback" class="mainbright0" src="anime31.jpg" amt="backpic">
             
-            <!-- profil part -->
-            <div id="profildiv">
-                <ul>
-                    <li title="Bientôt disponible" class="notyetclass">
-                        <!-- <form action="/profil" method="post"></form> -->
-                            <!-- <button id="profilbtn" title="Voir le profil"> <img class="picon" src="usericon.png" alt="p1pic" width="30" height="30"> Profil</button> -->
-                            <p> <img class="picon" src="usericon.png" alt="p1pic" width="30" height="30"> Profil</p>        
-                    </li>
-                    
-                    <li title="Bientôt disponible" class="notyetclass">
-                        <p> <img class="picon" src="friend.png" alt="p2pic" width="33" height="33"> Amis </p>
-                    </li>
-
-                    <li title="Bientôt disponible" class="notyetclass">
-                        <p> <img class="picon" src="setting.png" alt="p3pic" width="33" height="33"> Paramètre </p>
-                    </li>
-
-                    <li> 
-                        <form method="post" action="/logout">
-                            <button title="Se déconnecter" type="submit" class="logoutbtn"> <img class="picon" src="deco7.png" alt="p4pic" width="33" height="33"> Log out</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>   
-
+    
         
             <div class="termdiv">
 

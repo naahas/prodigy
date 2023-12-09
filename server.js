@@ -779,7 +779,7 @@ app.get('/home' , function(req,res) {
 });
 
 
-app.post('/profil' , function(req,res) {
+app.get('/profil' , function(req,res) {
     if(req.session.log) {
         res.sendFile(__dirname + '/profil.html');
     } else {

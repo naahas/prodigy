@@ -470,6 +470,25 @@ var app = new Vue({
         },
 
 
+        logOut: function() {
+            axios({
+                method: 'post',
+                url: '/logout'
+              });
+
+              this.reloadPage();
+
+              
+        },
+
+
+        goToProfil: function() {
+
+            window.location.href = '/profil'
+
+        },
+
+
         resetPassword: function() {
             var body = {
                 val: this.mail_reset
@@ -867,9 +886,9 @@ $( ".lab2 , .lab1" ).on( "click", function() {
     app.errorMsg = '';
 });
     
-$('#afterlogdiv').on('click' , function() {
-    $('#profildiv').show();
-});
+// $('#afterlogdiv').on('click' , function() {
+//     $('#profildiv').show();
+// });
 
 $('.playbtn').prop('disabled' , true);
 
