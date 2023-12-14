@@ -128,79 +128,64 @@
             <div v-show="selectedProfil" class="mainprofil">
 
                 <div class="headprofil">
-                    <p class="logtxt"> {{logged_user}} -  </p> 
-                    <p  class="descriptiontxt"> Coucou moi c'est {{logged_user}} </p>
+                    <p class="logtxt"> {{logged_user}}   </p> 
                 </div>
                 
                 <hr>
 
                 <div class="logInfoDiv">
 
-                    <form @submit.prevent="submitEdit()">
-                        <div v-show="showProfilError" class="errorprofil_div">
+                    
+                        <div class="errorprofil_div">
                             <span v-model="errorProfilMsg" class="span_profilerror"> {{errorProfilMsg}} </span> &nbsp;
                             <i class="fas fa-exclamation-circle icon_error1" style="color: #f00000;"></i>
                           </div>
 
                         <ul>
-
                             <li>
-                                <label class="label1" for="prousername">Pseudo : </label>
-                                <input disabled ref="pname_input"  class="place1" type="text" name="prousername" placeholder="">
-                                <img title="Modifier le pseudo" src="edit2.png" class="modifyimg act1" alt="editpic" width="40" height="40">
+                                <label class="label1" for="prousername">Pseudo ➩ </label>
+                                <input ref="pname_input"  id="prousername" class="place1" type="text" name="prousername" placeholder="">
+                                <button @click="submitEdit(0)" title="Modifier le pseudo" class="modifyimg act1" alt="editpic"> Modifier </button>
                             </li>
 
-                            <li>
+                            <!-- <li>
                                 <label class="label1" for="promail">E-Mail : </label>
-                                <input disabled ref="pmail_input"  class="place2" type="email" name="promail" placeholder="azerty@gmail.com">
-                                <img title="Modifier le mail" src="edit2.png" class="modifyimg act2" alt="editpic" width="40" height="40">
-                            </li>
+                                <input disabled ref="pmail_input"  id="promail" class="place2" type="email" name="promail" placeholder="azerty@gmail.com">
+                                <button title="Modifier le mail" class="modifyimg act2" alt="editpic"> Modifier </button>
+                            </li> -->
 
                             <li>
-                                <label class="label1" for="propassword">Password : </label>
-                                <input disabled ref="pmdp_input"  class="place3" type="password" name="propassword" placeholder="● ● ● ● ● ● ● ● ● ● ">
-                                <img title="Modifier mot de passe" src="edit2.png" class="modifyimg act3" alt="editpic">
+                                <label class="label1" for="propassword">Password ➩ </label>
+                                <input disabled ref="pmdp_input"  id="propassword" class="place3" type="password" name="propassword" placeholder="●●●●●●●●●">
+                                <button title="Modifier mot de passe" class="modifyimg act3" alt="editpic"> Modifier </button>
                             </li>
+                            
 
                             <li class="newmdpdiv">
-                                <label class="label1" for="pronewpassword">New Password : </label>
-                                <input ref="pnewmdp_input" class="place4" type="password" name="pronewpassword" placeholder="● ● ● ● ● ● ● ● ● ● ">
+                                <label class="label1" for="pronewpassword">New Password ➩ </label> 
+                                <input ref="pnewmdp_input" class="place4" id="pronewpassword" type="password" name="pronewpassword" placeholder="●●●●●●●●●">
+                                <button @click="submitEdit(1)" title="Modifier mot de passe" class="modifyimg act4" alt="editpic"> Modifier </button>
                             </li>
 
                             <li>
-                                <label class="label1" for="prowin">Rang : </label>
+                                <label class="label1">Rang ➩ </label> &nbsp;
                                 <img class="rankimg" src="aka2.png" alt="rankpic" width="15" height="15"> 
                                 <span class="text-light rankspan prospan"> Apprenti </span> 
                                 <img class="rankimg" src="aka2.png" alt="rankpic" width="15" height="15">
                             </li>
 
                             <li>
-                                <label class="label1" for="prowin">Victoires : </label>
+                                <label class="label1">Victoires ➩ </label>
                                 <span class="prospan"> 0 </span>
                             </li>
 
                             <li>
-                                <label class="label1" for="prowin">Parties : </label>
+                                <label class="label1"> Parties ➩ </label>
                                 <span class="prospan"> 0 </span>
                             </li>
-
-                            <li>
-                                <label class="label2" for="prodescription"> Description : </label>
-                                <input disabled ref="pdescription_input" class="place5" type="text" maxlength="80" name="prodescription" placeholder="Ma description..">
-                                <div class="help-tip">
-                                    <p>Change la description affichée en haut du profil</p>
-                                </div>
-                                <img title="Modifier la description" src="edit2.png" class="act4 modifyimg" alt="editpic" width="40" height="40">
-                            </li>
-
-                            <li class="subli">
-                                <button disabled type="submit" id="subprofilbtn">Enregistrer les modifications</button>
-                            </li>
-
 
                         </ul>
 
-                        </form>
 
                 </div>
 
@@ -231,6 +216,12 @@
                 </ul>
             </div>    
             
+
+
+
+            <div id="succsignboxid" class="bloggerspice bssuccess bstext" icon="check-circle" title="Success message">
+                <i class="fa bloggerspice-icon fa-check-circle"></i> &nbsp; Modifications effectuées !
+            </div>
 
     
         </div> <!-- end main div-->

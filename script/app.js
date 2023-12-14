@@ -134,19 +134,54 @@ var app = new Vue({
             location.href = '/home';
         },
 
-        submitEdit: function() {
+        submitEdit: function(change) {
 
             this.change_username = this.$refs.pname_input.value;
-            this.change_mail = this.$refs.pmail_input.value;
             this.change_password = this.$refs.pmdp_input.value;
             this.new_password = this.$refs.pnewmdp_input.value;
 
-            console.log(this.change_username)
-            console.log(this.change_password)
-            console.log(this.change_mail)
-            console.log(this.new_password)
+            var body;
 
-            //TODO SUBMIT PROFIL POST REQUEST
+            if((change == 0 && this.change_username.length > 0) || (change == 1 && this.new_password.length > 0)) {
+                if(change == 0) body = { new_username: this.change_username , cval: 0}
+                else body = {
+                    old_password: this.change_password,
+                    new_password: this.new_password,
+                    cval : 1
+                };
+            } 
+
+
+            if(body) {
+
+
+                 var config = {
+                    method: 'post',
+                    url: '/editProfil',
+                    data: body
+                };
+
+                axios(config)
+                .then(function (res) {
+                    if(res.data != 'good') editProfilError(res.data);
+                    else window.location.reload();
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+
+
+
+
+
+
+
+            }
+           
+            
+
+           
+
             
         },
 
@@ -606,6 +641,21 @@ var app = new Vue({
             startTimer(s_time , coanswer , playerfinalnb , plife);
         });  
 
+
+
+        socket.on('successEditEvent' , () => {
+
+            setTimeout(() => {
+                $('.bssuccess').show();
+            }, 1000);
+
+            setTimeout(() => {
+                $('.bssuccess').fadeOut();
+            }, 3500);
+       });
+
+
+
        socket.on('successRegisterEvent' , () => {
 
             setTimeout(() => {
@@ -616,6 +666,7 @@ var app = new Vue({
                 $('.bssuccess').fadeOut();
             }, 3500);
        });
+
 
        socket.on('endForPlayer' , () => {
             updateEndPlayerData();
@@ -913,6 +964,7 @@ $('.act2').on('click' , function() {
 })
 
 $('.act3').on('click' , function() {
+    $(this).hide();
     $('.place3').prop('disabled' , false);
     $('.place3').css('background-color', 'azure');
     $('.newmdpdiv').show();
@@ -1830,6 +1882,12 @@ function validateNoAnswer() {
 
 }
 
+
+
+function editProfilError(error_msg) {
+    app.errorProfilMsg = error_msg;
+    $('.errorprofil_div').show();
+}
 
 
 

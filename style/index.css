@@ -1133,16 +1133,15 @@ input[type="checkbox"] {
 .profillistdiv {
   z-index: 1;
   position: absolute;
-  width: 16vw;
-  height: 120%;
+  width: 15%;
+  height: 100%;
   border-top: 2px solid rgb(229, 242, 243);
   border-bottom: 2px solid rgb(229, 242, 243);
   background-color: rgb(5, 18, 2);
   box-shadow: rgba(11, 133, 163, 0.968) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.profillistdiv ul{
-  margin-top: 1vh;
+.profillistdiv ul {
   padding: 0;
   list-style-type: none;
 }
@@ -1163,10 +1162,6 @@ input[type="checkbox"] {
     transition: all 0.2s ease-in-out;
   }
 
-  .despic {
-    margin-left:2em;
-
-  }
 
   .parrow {
     float:right;
@@ -1180,7 +1175,7 @@ input[type="checkbox"] {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   text-decoration: none;
   color:azure;
-  padding: 10px;
+  padding: 5px;
 }
 
 .proline {
@@ -1192,10 +1187,10 @@ input[type="checkbox"] {
 }
 
 .mainprofil {
-  position: absolute;
+  position: relative;
   z-index: 0;
-  left:16vw;
-  width: 84vw;
+  left:15%;
+  width: 85%;
   height: 90vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -1250,12 +1245,12 @@ input[type="checkbox"] {
 .logInfoDiv input {
   margin-left:1em;
   padding: 0.8rem 1rem;
-  width: 60%;
+  width: 20%;
   font-size: 19px;
   font-weight: 80;
   color: #000000;
   border:none;
-  border-bottom: 5px solid rgb(244, 156, 235);
+  border-bottom: 2px solid rgb(240, 222, 238);
   outline: none;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(10, 0, 0, .3);
@@ -1267,10 +1262,14 @@ input[type="checkbox"] {
 }
 
 .label1 {
+  background-color: rgba(233, 221, 221, 0.1);
+  padding: 10px;
   text-transform: uppercase;
-  font-size: 13px;
-  font-family: Arial, Helvetica, sans-serif;
-  width: 8em;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: center;
+  font-size: 80%;
+  border-radius: 20px;
+  width: 17%;
   font-weight: bold;
   letter-spacing: 2px;
 }
@@ -1300,16 +1299,17 @@ input[type="checkbox"] {
 }
 
 .modifyimg {
-  width: 35px;
-  height: 35px;
-  margin-left:2em;
+  background-color: #87a9ecbf;
+  margin-left:3em;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  border-radius: 15px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px 10px 20px;
 }
 
 .modifyimg:hover {
-  background-color: #ffffff43;
+  background-color: rgba(255, 255, 255, 0.765);
   transform: scale(1.15);
 }
 
@@ -1325,13 +1325,10 @@ input[type="checkbox"] {
 }
 
 #subprofilbtn {
-    user-select: none;
-    border: none;
-    outline: none;
-    background: rgba(90, 198, 191, 0.5);
+    background: rgba(161, 228, 224, 0.74);
     display: block;
-    width: 60%;
-    color: white;
+    width: 50%;
+    color: aliceblue;
     font-family: 'Roboto', sans-serif;
     border-radius: 3px;
     padding: 15px;
@@ -1339,11 +1336,10 @@ input[type="checkbox"] {
     transition: .7s;
     margin-top: 7em;
     margin-left:10%;
-    opacity: 0.5;
   } 
   
 #subprofilbtn:hover { 
-    /* background: #d48c9e; */
+    background: #d48c9e;
     box-shadow: 0 3px 10px rgba(0, 0, 0, .6);
   } 
 

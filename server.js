@@ -779,14 +779,104 @@ app.get('/home' , function(req,res) {
 });
 
 
+
+
+app.post('/editProfil' , function(req,res) {
+
+    var editval = 1;
+
+    //username edit
+    if(req.body.cval == 0) {
+        var neo_username = req.body.new_username;
+        
+        editval = checkEdit(neo_username , null , 0);
+
+        //right username format
+        if(!editval) {
+            db.query(`select username from user where username = ?`, neo_username , function (err,result,fields) {
+                if(err) throw err;
+
+                if(result.length <= 0) {
+                    db.query(`update user set username = ? where username = ?`, [neo_username , req.session.user]);
+                    req.session.user = neo_username;
+                    req.session.didEdit = true;
+                    res.send('good');
+                   
+                } else res.send('Pseudo déjà utilisé');
+
+            });
+            
+        } else res.send(editval);
+
+
+
+        //password edit
+    } else if(req.body.cval == 1) {
+        var former_password = req.body.old_password;
+        var neo_password = req.body.new_password;
+        
+        editval = checkEdit(null , neo_password , 1);
+
+        if(!editval) {
+
+            db.query(`select usermdp from user where username = ?`, req.session.user , function (err,result,fields) {
+                if(err) throw err;
+                
+                if(result.length <= 0) res.send('database error');
+                else {
+                    //check if old mdp if same as bdd mdp
+                    bcrypt.compare(former_password , result[0].usermdp).then(function(result) {
+             
+                        //check if former password if good
+                        if(result == true) {
+
+                            if(former_password == neo_password) res.send('Mots de passes identiques');
+                            else {
+                                bcrypt.hash(neo_password, saltRounds).then(function(hash) {
+                                    db.query(`update user set usermdp = ? where username = ?`, [hash , req.session.user]);
+                                });
+                                req.session.didEdit = true;
+                                res.send('good');
+
+                            }
+                         
+                        } else res.send('Mot de passe actuel incorrect');
+        
+                    });
+
+                }
+    
+                    
+            })
+
+
+        } else res.send(editval);
+        
+
+    } else res.end();
+
+
+   
+
+});
+
+
 app.get('/profil' , function(req,res) {
     if(req.session.log) {
         res.sendFile(__dirname + '/profil.html');
     } else {
         res.redirect('/');
     }
-});
 
+    if(req.session.didEdit == true) {
+        req.session.didEdit = false;
+
+        io.once('connection' , (socket) => {
+            socket.emit('successEditEvent');
+        }); 
+
+    } 
+});
 
 
 app.post('/logout' , function(req,res) {
@@ -1038,7 +1128,7 @@ io.on('connection' , (socket) => {
         }
 
     }
-    
+
 
 
     
@@ -1047,6 +1137,32 @@ io.on('connection' , (socket) => {
 
 
 //JS FUNCTIONS
+function checkEdit(n_username , n_password , cval) {
+
+
+    if(cval == 0) {
+        var n_username_size = n_username.length;
+
+        if(n_username_size <= 3) return "Pseudo trop court (4/15)";
+        if(n_username_size > 15) return "Pseudo trop long (4/15)";   
+        if(n_username.indexOf(' ') >= 0) return "Format de pseudo invalide";
+
+    } 
+
+    if(cval == 1) {
+        var n_password_size = n_password.length;
+        if(n_password_size < 6) return "Mot de passe trop court (6/15)";
+        if(n_password_size > 15) return "Mot de passe trop long (6/15)";
+        
+    }
+    
+
+
+    return null;
+
+}
+
+
 function checkSign(username , mail ,  password) {
 
     var u_size = username.length;
@@ -1240,7 +1356,7 @@ function generateQuestionMainstream(req) {
                     mapcollectquestion.set(cho_question , req.session.rid);                    
                     db.query(`UPDATE data SET used = true WHERE question = ?` , cho_question);
 
-                    resolve([cho_question , cho_answer , cho_correct , "Very Hard"]);
+                    resolve([cho_question , cho_answer , cho_correct , "Very Hard"])
 
                 }
                
