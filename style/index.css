@@ -6,8 +6,7 @@ body{
 
 
 #headdiv {
-  
-  display: table;
+    display: table;
     width: 100vw;
     height: 10vh;
     background-color: rgb(37, 201, 11);
