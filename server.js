@@ -52,27 +52,27 @@ const io = new Server(server , {
 
 
 /// database connection
-const db = new mysql.createConnection({
-    host : process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+// const db = new mysql.createConnection({
+//     host : process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME,
 
-    ssl: {
-        rejectUnauthorized: true,
-      },
+//     ssl: {
+//         rejectUnauthorized: true,
+//       },
     
-});
+// });
 
 
 
 
-db.connect(function (err) {
-    if(err) throw err;
-    console.log('-------------------')
-    console.log("Database connected");
-    console.log("-------------------");
-})
+// db.connect(function (err) {
+//     if(err) throw err;
+//     console.log('-------------------')
+//     console.log("Database connected");
+//     console.log("-------------------");
+// })
 
 
 //session middleware
@@ -1925,13 +1925,13 @@ function reset_room(dhost) {
 
 
 function reset_db() {
-    db.query(`delete from hostroom`);
-    db.query(`delete from joinroom`);
+    // db.query(`delete from hostroom`);
+    // db.query(`delete from joinroom`);
 }
 
 
 function reset_data() {
-    db.query(`update data set used = false`);
+    // db.query(`update data set used = false`);
 }
 
 
